@@ -1,0 +1,48 @@
+name: Nominate a plugin
+description: Propose a Grok Build plugin for the library. It gets assayed with the kintsugi rubric before it is admitted.
+title: "[Nominate] "
+labels: ["nomination"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for pointing us at a plugin. Nothing is admitted on reputation: a nomination starts an assay (see [RUBRIC.md](https://github.com/HermeticOrmus/liquid-gold-grok/blob/main/RUBRIC.md)). The plugin is pinned to one commit, installed into a clean Grok home, and read for what it can execute. It lands as gold, assayed, or watch, with the reason written down.
+  - type: input
+    id: repo
+    attributes:
+      label: Repository
+      description: The GitHub repository, and the subfolder if the plugin is not at the root.
+      placeholder: "owner/repo, or owner/repo path plugins/<name>"
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What it does
+      description: In your own words, what a Grok user gets from it.
+      placeholder: "Skills for writing database migrations; an MCP server for the Stripe API; hooks that block force pushes"
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why it might be gold
+      description: What you have seen it do well. Links to a task it handled, a test suite, a changelog with real fixes.
+  - type: textarea
+    id: cracks
+    attributes:
+      label: Cracks you already know
+      description: Anything that did not install, did not load, or does something its README does not say. Evidence helps (a command and its output, a file and line).
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you send
+      options:
+        - label: The plugin has a license file, or I noted above that it does not.
+        - label: I am not the author, or I said so above.
+  - type: checkboxes
+    id: credit
+    attributes:
+      label: Credit
+      options:
+        - label: If this nomination leads to an entry, you may credit my GitHub handle in the entry card.

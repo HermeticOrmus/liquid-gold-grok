@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions and ideas
+    url: https://github.com/HermeticOrmus/liquid-gold-grok/discussions
+    about: Ask how an entry works, share what you built with one, or talk through a nomination before you file it.

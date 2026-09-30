@@ -1,0 +1,204 @@
+{
+  "name": "liquid-gold-grok",
+  "owner": {
+    "name": "Diego Bodart"
+  },
+  "metadata": {
+    "description": "Grok Build plugins that passed a kintsugi assay: pinned to one commit, installed clean, read for what they execute, with every crack and seal published.",
+    "homepage": "https://github.com/HermeticOrmus/liquid-gold-grok"
+  },
+  "plugins": [
+    {
+      "name": "api-documentation",
+      "description": "API documentation: docs-site architecture, OpenAPI reference generation and linting, operation-level writing, error catalogs, and SDK guides.",
+      "category": "documentation",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/HermeticOrmus/LibreCopy-Claude-Code.git",
+        "sha": "8ec68f353913bfd5cb087c621247a71f6448efe7",
+        "path": "plugins/api-documentation"
+      }
+    },
+    {
+      "name": "cloudflare",
+      "description": "Cloudflare developer platform skills (Workers, Durable Objects, Agents SDK, Wrangler, Sandbox, Turnstile, Cloudflare One) and the hosted Cloudflare MCP server.",
+      "category": "cloud",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/cloudflare/skills.git",
+        "sha": "626547c06881a20b3322bdc2ed6e6451b33a4fb6"
+      }
+    },
+    {
+      "name": "communication-buses",
+      "description": "I2C, SPI, UART, CAN and USB drivers with DMA strategy, error recovery, bit timing math and MCU peripheral quirks.",
+      "category": "embedded",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/HermeticOrmus/LibreEmbed-Claude-Code.git",
+        "sha": "87880829cd3dbd5667c9e678b76b7024566666f8",
+        "path": "plugins/communication-buses"
+      }
+    },
+    {
+      "name": "design-mastery",
+      "description": "Design principles, legendary designers and design movements applied to UI work, with design audits, brand identity, style guides and premium landing pages.",
+      "category": "design",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/HermeticOrmus/design-mastery-claude-code.git",
+        "sha": "e07686b7fced53664249503ed98c38640ae422b5"
+      }
+    },
+    {
+      "name": "frontend-design",
+      "description": "A skill for distinctive, intentional frontend design: a subject-grounded design plan, a review against the brief, then the build.",
+      "category": "design",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "sha": "ab024cdcfa7ca80be204acd4907656ba5a968589",
+        "path": "plugins/frontend-design"
+      }
+    },
+    {
+      "name": "ledger-design",
+      "description": "Double-entry ledger design: account taxonomy, immutable journal events, balance invariants, materialized balances, compensating corrections, multi-currency and rounding, and reconciliation.",
+      "category": "fintech",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/HermeticOrmus/LibreFinTech-Claude-Code.git",
+        "sha": "b49616e8c836a5bfe1cef51681fc5b9058bceab7",
+        "path": "plugins/ledger-design"
+      }
+    },
+    {
+      "name": "mattpocock-skills",
+      "description": "Matt Pocock's engineering skills: grilling, specs and tickets, TDD, bug diagnosis, code review, deep-module design, handoffs.",
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/mattpocock/skills.git",
+        "sha": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+      }
+    },
+    {
+      "name": "multiplayer-networking",
+      "description": "Multiplayer netcode: rollback, lockstep, client prediction with reconciliation, lag compensation, bandwidth budgets, NAT traversal, and Godot or Unity networking.",
+      "category": "game-development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/HermeticOrmus/claude-code-game-development.git",
+        "sha": "6959bed6b74ac0e2436089ca1748f78632938bf7",
+        "path": "plugins/multiplayer-networking"
+      }
+    },
+    {
+      "name": "rag-architecture",
+      "description": "Retrieval-augmented generation: chunking, embeddings, vector stores, hybrid retrieval, reranking, grounded generation, and evaluation.",
+      "category": "ai-ml",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/HermeticOrmus/LibreMLOps-Claude-Code.git",
+        "sha": "d129beed47bbb52bd166a5c1589ee17031478617",
+        "path": "plugins/rag-architecture"
+      }
+    },
+    {
+      "name": "chrome-devtools",
+      "description": "Chrome DevTools skills for driving and debugging a live Chrome (performance traces, network, console, accessibility, memory). Register the pinned MCP server with grok mcp add; see the entry card.",
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp.git",
+        "sha": "02c0112cd57e4fa4bac31a1e69d7507601773b14"
+      }
+    },
+    {
+      "name": "domain-driven-design",
+      "description": "Domain-Driven Design: bounded contexts, context maps, aggregates, value objects, domain events and event storming.",
+      "category": "architecture",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/HermeticOrmus/LibreArch-Claude-Code.git",
+        "sha": "c4939847c5c341a4b92b82fce885dbf5af59ffe3",
+        "path": "plugins/domain-driven-design"
+      }
+    },
+    {
+      "name": "feature-dev",
+      "description": "Guided feature development in seven phases, with codebase explorer, architect and reviewer agents.",
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "sha": "ab024cdcfa7ca80be204acd4907656ba5a968589",
+        "path": "plugins/feature-dev"
+      }
+    },
+    {
+      "name": "handoff",
+      "description": "Write a HANDOFF.md at session end that captures state, diff-invisible context, verify commands, and one specific next step, indexed for /pickup.",
+      "category": "productivity",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/HermeticOrmus/LibreSessionFlow-Claude-Code.git",
+        "sha": "c5822d81c207171f2831761e963729f3b59f3739",
+        "path": "plugins/handoff"
+      }
+    },
+    {
+      "name": "kubernetes-operations",
+      "description": "Design, deploy and troubleshoot production Kubernetes workloads, from resources, probes, RBAC and NetworkPolicies to autoscaling, Helm and common pod failures.",
+      "category": "devops",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/HermeticOrmus/LibreDevOps-Claude-Code.git",
+        "sha": "a810d2fa0d4f1191a79246c0443f0166129d97dc",
+        "path": "plugins/kubernetes-operations"
+      }
+    },
+    {
+      "name": "modern-web-guidance",
+      "description": "Current web platform guidance and Chrome extension skills from the Google Chrome team, with 162 bundled guides.",
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/GoogleChrome/modern-web-guidance.git",
+        "sha": "84ae7251ee919239d5ea85aef25897983f26601e"
+      }
+    },
+    {
+      "name": "pr-review-toolkit",
+      "description": "Six focused review agents (comments, tests, silent failures, types, code, simplification) and a /review-pr command.",
+      "category": "quality",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "sha": "ab024cdcfa7ca80be204acd4907656ba5a968589",
+        "path": "plugins/pr-review-toolkit"
+      }
+    },
+    {
+      "name": "pstack",
+      "description": "Engineering playbooks (poteto-mode) and principle skills for rigorous, verifiable agent work. The Cursor-specific model routing needs the workarounds in the entry card.",
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/cursor/plugins.git",
+        "sha": "2eb7ed4613cfc8f098dfe464a23680ea44d84c5e",
+        "path": "pstack"
+      }
+    },
+    {
+      "name": "superpowers",
+      "description": "Skills for disciplined engineering: brainstorming before code, written plans, test-driven development, systematic debugging, code review and verification before completion.",
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/obra/superpowers.git",
+        "sha": "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
+      }
+    }
+  ]
+}
