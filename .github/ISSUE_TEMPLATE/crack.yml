@@ -1,0 +1,55 @@
+name: Report a crack
+description: Something in an entry is wrong, broken, or not what its card says.
+title: "[Crack] "
+labels: ["crack"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A crack is where the gold goes. Tell us what broke and show the evidence; the crack gets an ID in the entry's ledger, a grade, and a seal. See [RUBRIC.md](https://github.com/HermeticOrmus/liquid-gold-grok/blob/main/RUBRIC.md) for how cracks are graded.
+  - type: input
+    id: entry
+    attributes:
+      label: Entry
+      description: The entry name as it appears in CATALOG.md.
+      placeholder: "superpowers"
+    validations:
+      required: true
+  - type: textarea
+    id: wrong
+    attributes:
+      label: What is wrong
+      description: One or two plain sentences.
+      placeholder: "The card says the plugin ships an MCP server, but grok plugin details shows none."
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: A command and its output, a file and line at the pinned SHA, or a link. Say your grok version (grok --version).
+      render: text
+    validations:
+      required: true
+  - type: dropdown
+    id: grade
+    attributes:
+      label: Grade
+      description: Your best guess; the assay confirms it.
+      options:
+        - "hairline: copy or cosmetic"
+        - "fracture: wrong behavior, with a workaround"
+        - "break: does not work, loses data, or breaks a safety or privacy promise"
+    validations:
+      required: true
+  - type: textarea
+    id: seal
+    attributes:
+      label: Seal, if you have one
+      description: A workaround, a fix you sent upstream, or a pull request to this library.
+  - type: checkboxes
+    id: credit
+    attributes:
+      label: Credit
+      options:
+        - label: If this report leads to a change, you may credit my GitHub handle in the ledger and the release notes.
