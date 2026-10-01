@@ -9,7 +9,7 @@ Sentry's own skills for working with Sentry from Grok: getting started and SDK i
 | Author | [Sentry](https://sentry.io) |
 | License | [MIT](https://github.com/getsentry/plugin-grok/blob/3d0347fbc4f2bfd39a30c9a2107f52f3efc54d67/LICENSE) |
 | Source | [getsentry/plugin-grok](https://github.com/getsentry/plugin-grok/tree/3d0347fbc4f2bfd39a30c9a2107f52f3efc54d67) |
-| Pinned SHA | `3d0347fbc4f2bfd39a30c9a2107f52f3efc54d67` (committed 2026-09-30, version 1.4.1) |
+| Pinned SHA | `3d0347fbc4f2bfd39a30c9a2107f52f3efc54d67` (committed 2026-09-30, version 1.4.1). xAI's catalog pins the release before it, `91e0cb6` (version 1.4.0, committed 2026-08-27); between the two, 244 files were removed and 34 changed, almost all of them SDK reference pages under `skills/`. This assay covers 1.4.1 only. |
 | Components at the pin | skills 8, agents 0, commands 0, hook events 0, MCP servers 1 |
 | Assayed | 2026-10-01 with grok 1.0.44 |
 
