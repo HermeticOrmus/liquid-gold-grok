@@ -4,10 +4,13 @@ name: mine
 # drift report (pins whose upstream moved). The result is one pull request on
 # the pantry/mine branch, updated in place, for a maintainer to read and merge.
 # Nothing is assayed and no pin moves here; that stays a reviewed pull request.
+#
+# Run it from the Actions tab. It has no schedule: GitHub rate-limits code
+# search for the workflow token (HTTP 429 on the first page), and mine.py then
+# writes nothing and fails, so a partial mine never replaces a full one. The
+# scheduled mine runs on the maintainer's machine with a personal token.
 
 on:
-  schedule:
-    - cron: "17 9 * * 1"
   workflow_dispatch:
 
 permissions:
@@ -49,7 +52,7 @@ jobs:
           git push -f origin pantry/mine
           gh pr view pantry/mine --json state --jq .state 2>/dev/null | grep -q OPEN || gh pr create --head pantry/mine \
             --title "docs(pantry): stock the candidate mine and drift report" \
-            --body "The scheduled mine: plugins in public sources with no card yet, and pins whose upstream moved. Read both files under pantry/, then merge. New assays and pin moves are their own pull requests."
+            --body "The mine: plugins in public sources with no card yet, and pins whose upstream moved. Read both files under pantry/, then merge. New assays and pin moves are their own pull requests."
       - name: Fail when an upstream could not be read
         if: env.DRIFT_RC != '0'
         run: |

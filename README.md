@@ -68,7 +68,7 @@ Five stages, in order, each ending on a check: ready the vessel (a full SHA, a c
 - **assayed**: admitted. Installs clean, no break open, and every open fracture carries a workaround in the card and a seal draft.
 - **watch**: promising, not admitted. The card says what holds it back.
 
-The full rubric is in [RUBRIC.md](RUBRIC.md). `scripts/verify.sh` re-proves every marketplace entry in CI on every change, and `scripts/repin.sh <entry>` shows what moved upstream before a pin is allowed to move. New candidates come from a public mine: `scripts/mine.py` lists the plugins in xAI's catalog and on GitHub that have no card yet, and the scheduled `mine` workflow restocks the [pantry](pantry/) with that list and a drift report from `scripts/repin.sh --all`.
+The full rubric is in [RUBRIC.md](RUBRIC.md). `scripts/verify.sh` re-proves every marketplace entry in CI on every change, and `scripts/repin.sh <entry>` shows what moved upstream before a pin is allowed to move. New candidates come from a public mine: `scripts/mine.py` lists the plugins in xAI's catalog and on GitHub that have no card yet, and a scheduled run restocks the [pantry](pantry/) with that list and a drift report from `scripts/repin.sh --all`.
 
 ## Feedback
 
