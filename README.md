@@ -48,13 +48,13 @@ Every entry installs from its upstream repository at the pinned commit, so what 
 
 ## Catalog
 
-The first stock holds 27 entries, each assayed at a pinned commit with grok 1.0.44: 11 from the HermeticOrmus Libre packs and design-mastery, 16 by other authors. Their ledgers hold 160 cracks, and 55 of them are sealed.
+Two stocks hold 40 entries, each assayed at a pinned commit with grok 1.0.44: 11 from the HermeticOrmus Libre packs and design-mastery, 29 by other authors. Their ledgers hold 234 cracks, and 66 of them are sealed.
 
 | Level | Entries |
 |-------|---------|
-| gold (9) | [api-documentation](entries/api-documentation.md), [cloudflare](entries/cloudflare.md), [communication-buses](entries/communication-buses.md), [design-mastery](entries/design-mastery.md), [frontend-design](entries/frontend-design.md), [ledger-design](entries/ledger-design.md), [mattpocock-skills](entries/mattpocock-skills.md), [multiplayer-networking](entries/multiplayer-networking.md), [rag-architecture](entries/rag-architecture.md) |
-| assayed (9) | [chrome-devtools](entries/chrome-devtools.md), [domain-driven-design](entries/domain-driven-design.md), [feature-dev](entries/feature-dev.md), [handoff](entries/handoff.md), [kubernetes-operations](entries/kubernetes-operations.md), [modern-web-guidance](entries/modern-web-guidance.md), [pr-review-toolkit](entries/pr-review-toolkit.md), [pstack](entries/pstack.md), [superpowers](entries/superpowers.md) |
-| watch (9) | [axiorank](entries/axiorank.md), [epic](entries/epic.md), [figma](entries/figma.md), [hindsight-memory](entries/hindsight-memory.md), [libre-geo](entries/libre-geo.md), [libre-secops-hooks](entries/libre-secops-hooks.md), [oh-my-grok](entries/oh-my-grok.md), [security-guidance](entries/security-guidance.md), [stripe](entries/stripe.md) |
+| gold (12) | [api-documentation](entries/api-documentation.md), [cloudflare](entries/cloudflare.md), [communication-buses](entries/communication-buses.md), [design-mastery](entries/design-mastery.md), [frontend-design](entries/frontend-design.md), [ledger-design](entries/ledger-design.md), [mattpocock-skills](entries/mattpocock-skills.md), [mongodb](entries/mongodb.md), [multiplayer-networking](entries/multiplayer-networking.md), [netlify-skills](entries/netlify-skills.md), [ponytail](entries/ponytail.md), [rag-architecture](entries/rag-architecture.md) |
+| assayed (15) | [chrome-devtools](entries/chrome-devtools.md), [compound-engineering](entries/compound-engineering.md), [datadog](entries/datadog.md), [domain-driven-design](entries/domain-driven-design.md), [feature-dev](entries/feature-dev.md), [handoff](entries/handoff.md), [kubernetes-operations](entries/kubernetes-operations.md), [modern-web-guidance](entries/modern-web-guidance.md), [pr-review-toolkit](entries/pr-review-toolkit.md), [pstack](entries/pstack.md), [railway](entries/railway.md), [sentry](entries/sentry.md), [sprites](entries/sprites.md), [supabase](entries/supabase.md), [superpowers](entries/superpowers.md) |
+| watch (13) | [axiorank](entries/axiorank.md), [claude-mem](entries/claude-mem.md), [epic](entries/epic.md), [figma](entries/figma.md), [firecrawl](entries/firecrawl.md), [hindsight-memory](entries/hindsight-memory.md), [last30days](entries/last30days.md), [libre-geo](entries/libre-geo.md), [libre-secops-hooks](entries/libre-secops-hooks.md), [oh-my-grok](entries/oh-my-grok.md), [security-guidance](entries/security-guidance.md), [stripe](entries/stripe.md), [vercel](entries/vercel.md) |
 
 Gold and assayed entries are in the marketplace. Watch entries are not: each card says what holds it back, from a license that is missing to a privacy promise the code does not keep.
 
@@ -68,7 +68,7 @@ Five stages, in order, each ending on a check: ready the vessel (a full SHA, a c
 - **assayed**: admitted. Installs clean, no break open, and every open fracture carries a workaround in the card and a seal draft.
 - **watch**: promising, not admitted. The card says what holds it back.
 
-The full rubric is in [RUBRIC.md](RUBRIC.md). `scripts/verify.sh` re-proves every marketplace entry in CI on every change, and `scripts/repin.sh <entry>` shows what moved upstream before a pin is allowed to move.
+The full rubric is in [RUBRIC.md](RUBRIC.md). `scripts/verify.sh` re-proves every marketplace entry in CI on every change, and `scripts/repin.sh <entry>` shows what moved upstream before a pin is allowed to move. New candidates come from a public mine: `scripts/mine.py` lists the plugins in xAI's catalog and on GitHub that have no card yet, and the scheduled `mine` workflow restocks the [pantry](pantry/) with that list and a drift report from `scripts/repin.sh --all`.
 
 ## Feedback
 

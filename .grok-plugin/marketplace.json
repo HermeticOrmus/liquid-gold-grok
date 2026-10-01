@@ -20,6 +20,16 @@
       }
     },
     {
+      "name": "chrome-devtools",
+      "description": "Chrome DevTools skills for driving and debugging a live Chrome (performance traces, network, console, accessibility, memory). Register the pinned MCP server with grok mcp add; see the entry card.",
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp.git",
+        "sha": "02c0112cd57e4fa4bac31a1e69d7507601773b14"
+      }
+    },
+    {
       "name": "cloudflare",
       "description": "Cloudflare developer platform skills (Workers, Durable Objects, Agents SDK, Wrangler, Sandbox, Turnstile, Cloudflare One) and the hosted Cloudflare MCP server.",
       "category": "cloud",
@@ -41,6 +51,26 @@
       }
     },
     {
+      "name": "compound-engineering",
+      "description": "Every's 36-skill loop for brainstorming, planning, building, reviewing and recording what each change taught.",
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/EveryInc/compound-engineering-plugin.git",
+        "sha": "1fd12d69812b9c48e0b054bb4a000de2cb37f744"
+      }
+    },
+    {
+      "name": "datadog",
+      "description": "Datadog's hosted MCP server for logs, metrics, traces, monitors and dashboards, with a connection-troubleshooting skill and a Datadog App scaffolder.",
+      "category": "observability",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/datadog-labs/grok-plugin.git",
+        "sha": "083b4783095520f562534956578c8826613292a9"
+      }
+    },
+    {
       "name": "design-mastery",
       "description": "Design principles, legendary designers and design movements applied to UI work, with design audits, brand identity, style guides and premium landing pages.",
       "category": "design",
@@ -48,70 +78,6 @@
         "source": "url",
         "url": "https://github.com/HermeticOrmus/design-mastery-claude-code.git",
         "sha": "e07686b7fced53664249503ed98c38640ae422b5"
-      }
-    },
-    {
-      "name": "frontend-design",
-      "description": "A skill for distinctive, intentional frontend design: a subject-grounded design plan, a review against the brief, then the build.",
-      "category": "design",
-      "source": {
-        "source": "url",
-        "url": "https://github.com/anthropics/claude-plugins-official.git",
-        "sha": "ab024cdcfa7ca80be204acd4907656ba5a968589",
-        "path": "plugins/frontend-design"
-      }
-    },
-    {
-      "name": "ledger-design",
-      "description": "Double-entry ledger design: account taxonomy, immutable journal events, balance invariants, materialized balances, compensating corrections, multi-currency and rounding, and reconciliation.",
-      "category": "fintech",
-      "source": {
-        "source": "url",
-        "url": "https://github.com/HermeticOrmus/LibreFinTech-Claude-Code.git",
-        "sha": "b49616e8c836a5bfe1cef51681fc5b9058bceab7",
-        "path": "plugins/ledger-design"
-      }
-    },
-    {
-      "name": "mattpocock-skills",
-      "description": "Matt Pocock's engineering skills: grilling, specs and tickets, TDD, bug diagnosis, code review, deep-module design, handoffs.",
-      "category": "development",
-      "source": {
-        "source": "url",
-        "url": "https://github.com/mattpocock/skills.git",
-        "sha": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
-      }
-    },
-    {
-      "name": "multiplayer-networking",
-      "description": "Multiplayer netcode: rollback, lockstep, client prediction with reconciliation, lag compensation, bandwidth budgets, NAT traversal, and Godot or Unity networking.",
-      "category": "game-development",
-      "source": {
-        "source": "url",
-        "url": "https://github.com/HermeticOrmus/claude-code-game-development.git",
-        "sha": "6959bed6b74ac0e2436089ca1748f78632938bf7",
-        "path": "plugins/multiplayer-networking"
-      }
-    },
-    {
-      "name": "rag-architecture",
-      "description": "Retrieval-augmented generation: chunking, embeddings, vector stores, hybrid retrieval, reranking, grounded generation, and evaluation.",
-      "category": "ai-ml",
-      "source": {
-        "source": "url",
-        "url": "https://github.com/HermeticOrmus/LibreMLOps-Claude-Code.git",
-        "sha": "d129beed47bbb52bd166a5c1589ee17031478617",
-        "path": "plugins/rag-architecture"
-      }
-    },
-    {
-      "name": "chrome-devtools",
-      "description": "Chrome DevTools skills for driving and debugging a live Chrome (performance traces, network, console, accessibility, memory). Register the pinned MCP server with grok mcp add; see the entry card.",
-      "category": "development",
-      "source": {
-        "source": "url",
-        "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp.git",
-        "sha": "02c0112cd57e4fa4bac31a1e69d7507601773b14"
       }
     },
     {
@@ -137,6 +103,17 @@
       }
     },
     {
+      "name": "frontend-design",
+      "description": "A skill for distinctive, intentional frontend design: a subject-grounded design plan, a review against the brief, then the build.",
+      "category": "design",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "sha": "ab024cdcfa7ca80be204acd4907656ba5a968589",
+        "path": "plugins/frontend-design"
+      }
+    },
+    {
       "name": "handoff",
       "description": "Write a HANDOFF.md at session end that captures state, diff-invisible context, verify commands, and one specific next step, indexed for /pickup.",
       "category": "productivity",
@@ -159,6 +136,27 @@
       }
     },
     {
+      "name": "ledger-design",
+      "description": "Double-entry ledger design: account taxonomy, immutable journal events, balance invariants, materialized balances, compensating corrections, multi-currency and rounding, and reconciliation.",
+      "category": "fintech",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/HermeticOrmus/LibreFinTech-Claude-Code.git",
+        "sha": "b49616e8c836a5bfe1cef51681fc5b9058bceab7",
+        "path": "plugins/ledger-design"
+      }
+    },
+    {
+      "name": "mattpocock-skills",
+      "description": "Matt Pocock's engineering skills: grilling, specs and tickets, TDD, bug diagnosis, code review, deep-module design, handoffs.",
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/mattpocock/skills.git",
+        "sha": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+      }
+    },
+    {
       "name": "modern-web-guidance",
       "description": "Current web platform guidance and Chrome extension skills from the Google Chrome team, with 162 bundled guides.",
       "category": "development",
@@ -166,6 +164,48 @@
         "source": "url",
         "url": "https://github.com/GoogleChrome/modern-web-guidance.git",
         "sha": "84ae7251ee919239d5ea85aef25897983f26601e"
+      }
+    },
+    {
+      "name": "mongodb",
+      "description": "MongoDB's skills for read-only queries, schema design, query and index optimization, Atlas Search and Vector Search, connection tuning and stream processing, with the self-managed MongoDB MCP server run through npx.",
+      "category": "database",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/mongodb/agent-skills.git",
+        "sha": "d1d2d86754ff303ac441624b2ac8e0380465aa9b",
+        "path": "plugins/mongodb"
+      }
+    },
+    {
+      "name": "multiplayer-networking",
+      "description": "Multiplayer netcode: rollback, lockstep, client prediction with reconciliation, lag compensation, bandwidth budgets, NAT traversal, and Godot or Unity networking.",
+      "category": "game-development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/HermeticOrmus/claude-code-game-development.git",
+        "sha": "6959bed6b74ac0e2436089ca1748f78632938bf7",
+        "path": "plugins/multiplayer-networking"
+      }
+    },
+    {
+      "name": "netlify-skills",
+      "description": "Netlify reference skills for Functions, Edge Functions, Blobs, the managed database, Identity, Forms, caching, AI Gateway, framework adapters and deploys, plus Netlify's hosted MCP server.",
+      "category": "cloud",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/netlify/context-and-tools.git",
+        "sha": "47d1f147cc134043593574b69e6483e1f6ae16ad"
+      }
+    },
+    {
+      "name": "ponytail",
+      "description": "Six skills that steer the agent to the smallest change that works: YAGNI, stdlib and platform first, and reviews that list what to delete.",
+      "category": "productivity",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/DietrichGebert/ponytail.git",
+        "sha": "e3ba2aa6f1e6f0bc4d69eb09c9f0d0a93af56156"
       }
     },
     {
@@ -188,6 +228,58 @@
         "url": "https://github.com/cursor/plugins.git",
         "sha": "2eb7ed4613cfc8f098dfe464a23680ea44d84c5e",
         "path": "pstack"
+      }
+    },
+    {
+      "name": "rag-architecture",
+      "description": "Retrieval-augmented generation: chunking, embeddings, vector stores, hybrid retrieval, reranking, grounded generation, and evaluation.",
+      "category": "ai-ml",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/HermeticOrmus/LibreMLOps-Claude-Code.git",
+        "sha": "d129beed47bbb52bd166a5c1589ee17031478617",
+        "path": "plugins/rag-architecture"
+      }
+    },
+    {
+      "name": "railway",
+      "description": "Railway's use-railway skill and hosted MCP server for projects, services, databases, deploys, variables, logs and metrics, with the skill-scope and hook workarounds in the entry card.",
+      "category": "cloud",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/railwayapp/railway-skills.git",
+        "sha": "4db2ee90245d61be0ffea28280164373ac3f96c0",
+        "path": "plugins/railway"
+      }
+    },
+    {
+      "name": "sentry",
+      "description": "Sentry's skills for SDK setup, issue debugging, readable stack traces, releases, alerts and OpenTelemetry, with Sentry's hosted MCP server.",
+      "category": "observability",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/getsentry/plugin-grok.git",
+        "sha": "3d0347fbc4f2bfd39a30c9a2107f52f3efc54d67"
+      }
+    },
+    {
+      "name": "sprites",
+      "description": "Fly.io Sprites for Grok Build: isolated, checkpointable remote Linux sandboxes through the hosted Sprites MCP server with OAuth, and skills for exec, services, checkpoints and network policy.",
+      "category": "cloud",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/superfly/sprites-grok-plugin.git",
+        "sha": "0b6adb56ce17d85e73dcdf67514e9046d79b6ac2"
+      }
+    },
+    {
+      "name": "supabase",
+      "description": "Supabase's skills for every Supabase product and for Postgres schema, index and RLS rules, with Supabase's hosted MCP server.",
+      "category": "cloud",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/supabase-community/supabase-plugin.git",
+        "sha": "2c6d02d4565babe784103ee4d446a93ae9b24151"
       }
     },
     {

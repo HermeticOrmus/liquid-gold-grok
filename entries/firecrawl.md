@@ -1,0 +1,108 @@
+# firecrawl
+
+Firecrawl's Grok Build plugin: twelve skills for web search, scraping, site maps, crawls, structured extraction, live browser sessions, page monitors, Alexandria data providers and developer search, a `/skill-gen` command that builds a skill from a docs site, and Firecrawl's hosted MCP server.
+
+| | |
+|---|---|
+| Level | **watch** |
+| Domain | Web data |
+| Author | [Firecrawl](https://github.com/firecrawl) |
+| License | AGPL-3.0, stated in the [manifest](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/.grok-plugin/plugin.json#L11) and [README](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/README.md#L137); no license file at the pin (K-01) |
+| Source | [firecrawl/firecrawl-grok-plugin](https://github.com/firecrawl/firecrawl-grok-plugin/tree/fc26fcf97921f5b4db93b06e000b6366e8d67c48) |
+| Pinned SHA | `fc26fcf97921f5b4db93b06e000b6366e8d67c48` (committed 2026-09-30, version 1.3.0) |
+| Components at the pin | skills 12, agents 0, commands 1, hook events 0, MCP servers 1 |
+| Assayed | 2026-10-01 with grok 1.0.44 |
+
+## Who it is for
+
+Grok users who need the live web in a task: search with full page content, scrape a JavaScript-heavy page, map or crawl a docs site, pull records from a catalogued data provider, or watch a page for changes. A Firecrawl API key gets the full toolset; without one, the hosted server gives search, scrape and parse only.
+
+## Install
+
+Not in the marketplace yet. The upstream install line is below, for reference only.
+
+```bash
+grok plugin install https://github.com/firecrawl/firecrawl-grok-plugin.git@fc26fcf97921f5b4db93b06e000b6366e8d67c48 --trust
+```
+
+If you install it, read the workarounds below first. Without the header override in K-02, Grok connects to Firecrawl without signing in and sees 3 of the server's tools.
+
+## Why it is watch
+
+Every gate passed at the pin, the skills are specific and well routed (search, then scrape, then map, then crawl, with provider terms that are never accepted on the user's behalf), and there are no hooks and no shipped scripts, so nothing runs unless the agent calls it. Two breaks keep it out of the marketplace (K-03 and K-04), and two fractures carry workarounds (K-01 and K-02). Every one has a seal drafted for Firecrawl.
+
+The one that matters most to a new user is K-02. The README promises that the first web action signs you in through the browser and that the bundled server covers the full toolset. In a clean Grok home, `grok mcp doctor firecrawl` reports `handshake OK` and `3 tools discovered`: the hosted server accepts the session without a key, Grok has no reason to start OAuth, and the server's own instructions say keyless sessions get `firecrawl_search`, `firecrawl_scrape` and `firecrawl_parse` only. The map, crawl, agent, interact, monitor and Alexandria skills then reach for tools that are not there, and developer search falls back to a search filter. Adding the API key as a header in Grok's config brings the list to 27 tools, and the plugin's 12 skills and command still load.
+
+The other three: there is no license file, only an AGPL-3.0 line in the manifest and README (K-01). `firecrawl-parse` claims requests such as "read this file" for any local document and calls parsing a local operation, while both paths it can take upload the whole file to Firecrawl (K-03). And the search skills tell the agent to send feedback to Firecrawl in the background after every search, which the README never mentions and the plugin's own security rule says does not happen (K-04). K-03 and K-04 are breaks under the rubric. The upload and the feedback both go to Firecrawl, the service the plugin is named for, and each has an opt-out. But the plugin's own words promise the opposite: parse is called a local operation, and the security rule says no background fetching occurs. The README never corrects either one or names the opt-outs. A user who says "read this file" has no way to learn from the plugin that the file is uploaded. The entry is admitted when the skill and README say what leaves the machine, as the K-03 and K-04 drafts propose.
+
+## What it can execute
+
+- **Hooks:** none.
+- **Scripts:** none shipped. The skills list `Bash(firecrawl *)` and `Bash(npx firecrawl *)` in `allowed-tools`, and the CLI setup they recommend is `npx -y firecrawl-cli@1.16.2 init -y --browser`, which installs the CLI globally, signs in through the browser and installs Firecrawl's other skill groups into every coding agent it detects ([rules/install.md:15](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/skills/firecrawl-cli/rules/install.md#L15), [line 30](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/skills/firecrawl-cli/rules/install.md#L30)). The skills write results under `.firecrawl/` and add that folder to `.gitignore` ([firecrawl-cli/SKILL.md:268](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/skills/firecrawl-cli/SKILL.md#L268)).
+- **MCP servers:** `firecrawl`, type `http`, at `https://mcp.firecrawl.dev/v2/mcp` ([.mcp.json](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/.mcp.json)). Nothing is installed locally.
+- **Network:** the hosted server receives search queries, URLs, extraction prompts and, through `firecrawl_parse`, uploaded files. The CLI calls `api.firecrawl.dev`, and `firecrawl parse` posts the local file there ([firecrawl/cli parse.ts:4](https://github.com/firecrawl/cli/blob/42b990d06e2b5f518ddaa4555f4e66ffe97e44eb/src/commands/parse.ts#L4), at the version the skills pin). After each search the agent is told to send feedback in the background, and after each Alexandria task, one feedback call per website (K-04). `interact` drives a browser hosted by Firecrawl that can log in and submit forms (K-07), and monitors create recurring scrapes on Firecrawl's side, with email or webhook alerts.
+- **Disclosed in its README:** partly. The hosted server, the optional CLI and the `.firecrawl/` output folder are documented ([README.md:5](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/README.md#L5), [line 84](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/README.md#L84)). The parse upload (K-03), the feedback calls (K-04) and the global skill install by `firecrawl init` (K-08) are not.
+
+## Assay
+
+| Check | Result | Evidence |
+|-------|--------|----------|
+| Ready the vessel | pass | pinned `fc26fcf`, clean `GROK_HOME` and `HOME` (`No plugins installed`, `No marketplace sources configured`) |
+| Gate: validate | pass | `components: 1 skill dir(s), 1 command dir(s), 0 agent dir(s), MCP servers` |
+| Gate: install at the pin | pass | `Installed 1 plugin(s) from https://github.com/firecrawl/firecrawl-grok-plugin.git@fc26fcf...: firecrawl`; the registry records commit `fc26fcf97921f5b4db93b06e000b6366e8d67c48` |
+| Gate: details | pass | `firecrawl v1.3.0`, `components: 1 skill dir(s), 1 command dir(s), 0 agent dir(s), MCP servers` |
+| Gate: inspect | pass | `grok inspect --json` from an empty folder: skills 12, commands 1 (`skill-gen`), MCP server `firecrawl` (http), the same as the files on disk |
+| MCP server under Grok | keyless | `grok mcp doctor firecrawl`: `server started`, `handshake OK (protocol 2025-11-25)`, `3 tools discovered`; no sign-in was asked for (K-02) |
+| Reading: promises against components | fracture | 3 of the promised tools without a key (K-02); stale skill and tool names (K-06) |
+| Reading: license | fracture | no license file in the tree; `gh api repos/firecrawl/firecrawl-grok-plugin/license`: `Not Found (HTTP 404)`; AGPL-3.0 in the manifest and README (K-01) |
+| Reading: what it can execute | fracture | local files uploaded by parse (K-03); background feedback calls (K-04) |
+| Reading: maintenance | last push 2026-09-30, 0 open issues, 0 open pull requests, 10 stars | GitHub API, 2026-10-01 |
+| README install line | fails in a clean home | `grok plugin install firecrawl --trust`: `No marketplace plugin named "firecrawl" in any registered marketplace` (K-05) |
+| Hands | not run | a Grok session costs model time; not run for this assay |
+
+Grok's behavior is cited from Grok's user guide (grok 1.0.44 writes it into every fresh `GROK_HOME`; the links go to the same text in xai-org/grok-build at `2bdd1d6`). The hosted server was read with `grok mcp doctor` and with plain MCP `initialize` and `tools/list` requests on 2026-10-01, from one network.
+
+## Ledger
+
+| ID | Crack | Evidence | Grade | Tracker | Seal | State |
+|----|-------|----------|-------|---------|------|-------|
+| K-01 | There is no license file at the pin; the license is stated only in the manifest and README, and GitHub reports none for the repository. | [tree at the pin](https://github.com/firecrawl/firecrawl-grok-plugin/tree/fc26fcf97921f5b4db93b06e000b6366e8d67c48), [.grok-plugin/plugin.json:11](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/.grok-plugin/plugin.json#L11), [README.md:137](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/README.md#L137); `gh api repos/firecrawl/firecrawl-grok-plugin/license`: `Not Found (HTTP 404)` | fracture | new (the tracker holds only the three merged pull requests) | add the AGPL-3.0 text as `LICENSE`, small | drafted ([seal](../seals/firecrawl/K-01.md)) |
+| K-02 | Grok never signs in to the hosted server: it accepts a keyless session, so Grok sees 3 tools (search, scrape, parse) instead of the full toolset the README and `.mcp.json` describe, and the map, crawl, agent, interact, monitor and Alexandria skills find no tool to call. | [README.md:5](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/README.md#L5), [README.md:29](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/README.md#L29), [README.md:35](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/README.md#L35), [.mcp.json:6](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/.mcp.json#L6); `grok mcp doctor firecrawl`: `3 tools discovered`; the server's `initialize` instructions: "Hosted keyless sessions expose firecrawl_search, firecrawl_scrape, and firecrawl_parse with usage limits. An Authorization bearer API key can provide higher usage limits and expose additional tools"; `/.well-known/oauth-protected-resource` on the server host: HTTP 404. [#1](https://github.com/firecrawl/firecrawl-grok-plugin/pull/1) recorded a `401` OAuth challenge when the file was added, so the server changed after the plugin was written. xAI's listing does say "keyless on eligible networks" ([marketplace.json:165](https://github.com/xai-org/plugin-marketplace/blob/b315f7de89fd2215c1dd0dc8665bc84e55fa4611/.grok-plugin/marketplace.json#L165)). Grok probes anonymous access before OAuth ([07-mcp-servers.md:74](https://github.com/xai-org/grok-build/blob/2bdd1d6a6369de0e8c68132ea4539e9abd9e14a8/crates/codegen/xai-grok-pager/docs/user-guide/07-mcp-servers.md#L74)) | fracture | new | document the API-key header for Grok, or have keyless sessions point the agent to it; update the README's sign-in section, small | drafted ([seal](../seals/firecrawl/K-02.md)) |
+| K-03 | `firecrawl-parse` claims "read this file" and any local file path, and calls parsing a local operation that the hosted server "cannot" do; both paths upload the whole file to Firecrawl: the CLI posts it to `/v2/parse`, and the hosted server's own `firecrawl_parse` tool, offered even to keyless sessions, has the agent upload it. Neither the skill nor the README says the file leaves the machine. | [firecrawl-parse/SKILL.md:4](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/skills/firecrawl-parse/SKILL.md#L4), [line 14](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/skills/firecrawl-parse/SKILL.md#L14), [line 58](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/skills/firecrawl-parse/SKILL.md#L58) ("Max upload size"), [README.md:35](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/README.md#L35); CLI 1.16.2: [parse.ts:4](https://github.com/firecrawl/cli/blob/42b990d06e2b5f518ddaa4555f4e66ffe97e44eb/src/commands/parse.ts#L4), [parse.ts:182](https://github.com/firecrawl/cli/blob/42b990d06e2b5f518ddaa4555f4e66ffe97e44eb/src/commands/parse.ts#L182); keyless `tools/list`: `firecrawl_parse` "Hosted MCP uses two calls: first provide `filePath` to receive upload instructions, upload locally, then call again". Whether Grok takes the hosted path without the CLI is *inferred* | break | new | say in the skill and README that parse uploads the file to Firecrawl, narrow the trigger to parsing with Firecrawl, and drop the "cannot access local files" line, small | drafted ([seal](../seals/firecrawl/K-03.md)) |
+| K-04 | The search skills tell the agent to send structured feedback to Firecrawl in the background after every search, and Alexandria feedback after every task; the README never mentions it, and the plugin's security rule says "No background or automatic fetching occurs". The skill gives a CLI opt-out; the hosted server's `firecrawl_search_feedback` and `firecrawl_feedback` tools have none. | [firecrawl-cli/SKILL.md:304](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/skills/firecrawl-cli/SKILL.md#L304), [line 321](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/skills/firecrawl-cli/SKILL.md#L321), [firecrawl-search/SKILL.md:66](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/skills/firecrawl-search/SKILL.md#L66), [firecrawl-alexandria/SKILL.md:94](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/skills/firecrawl-alexandria/SKILL.md#L94), [rules/security.md:17](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/skills/firecrawl-cli/rules/security.md#L17) | break | new | a README section on feedback and its opt-outs, a security line that matches, and feedback only when the user agrees, small | drafted ([seal](../seals/firecrawl/K-04.md)) |
+| K-05 | The README's install step is `/plugin` and a search, and it checks the connection with `/mcp`; Grok's command reference lists `/plugins`, `/marketplace` and `/mcps`, the name alone does not install in a clean Grok home, and xAI's listing pins the earlier 1.2.0 without Alexandria. | [README.md:25](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/README.md#L25), [README.md:29](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/README.md#L29); Grok: [04-slash-commands.md:226](https://github.com/xai-org/grok-build/blob/2bdd1d6a6369de0e8c68132ea4539e9abd9e14a8/crates/codegen/xai-grok-pager/docs/user-guide/04-slash-commands.md#L226), [line 359](https://github.com/xai-org/grok-build/blob/2bdd1d6a6369de0e8c68132ea4539e9abd9e14a8/crates/codegen/xai-grok-pager/docs/user-guide/04-slash-commands.md#L359); `grok plugin install firecrawl --trust` in a clean home: `No marketplace plugin named "firecrawl" in any registered marketplace`; xAI pin `7100b62` ([marketplace.json:170](https://github.com/xai-org/plugin-marketplace/blob/b315f7de89fd2215c1dd0dc8665bc84e55fa4611/.grok-plugin/marketplace.json#L170)) | hairline | new | a direct install line, small; the direct form ran at the pin | drafted ([seal](../seals/firecrawl/K-05.md)) |
+| K-06 | Names that no longer match the plugin: `rules/install.md` lists 10 skills "listed in its manifest" (the manifest lists none, and the plugin ships 12); `firecrawl-cli` says the `firecrawl-build` and `firecrawl-workflows` skills are "already installed alongside this CLI skill", which the plugin does not ship; `firecrawl_extract` is named in the README, `.mcp.json` and `firecrawl-cli`, and the server does not list it; `/skill-gen` uses only CLI commands, though the README makes the server the default path. | [rules/install.md:20](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/skills/firecrawl-cli/rules/install.md#L20), [firecrawl-cli/SKILL.md:55](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/skills/firecrawl-cli/SKILL.md#L55), [line 263](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/skills/firecrawl-cli/SKILL.md#L263), [line 14](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/skills/firecrawl-cli/SKILL.md#L14), [commands/skill-gen.md:14](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/commands/skill-gen.md#L14); `tools/list` with a bearer header: 27 tools, no `firecrawl_extract` | hairline | new | update the lists and names, small | drafted ([seal](../seals/firecrawl/K-05.md), same draft) |
+| K-07 | `firecrawl-interact` triggers on "log in to", "sign in", "submit" and multi-step checkout flows, and has no step that asks the user before it submits a form or types credentials into Firecrawl's hosted browser; the server's own tool text warns that "form submission can create persistent external side effects". Grok's default mode asks before tools that are not read-only, which is the guard at the pin. | [firecrawl-interact/SKILL.md:4](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/skills/firecrawl-interact/SKILL.md#L4), [line 65](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/skills/firecrawl-interact/SKILL.md#L65); Grok: [22-permissions-and-safety.md:35](https://github.com/xai-org/grok-build/blob/2bdd1d6a6369de0e8c68132ea4539e9abd9e14a8/crates/codegen/xai-grok-pager/docs/user-guide/22-permissions-and-safety.md#L35) | hairline | new | a confirm step before submits, logins and purchases, small | drafted ([seal](../seals/firecrawl/K-07.md)) |
+| K-08 | The recommended CLI setup, `npx -y firecrawl-cli@1.16.2 init -y --browser`, installs Firecrawl's skill groups into every coding agent it detects, with `-y` skipping the prompt; the README's own CLI step (`npm install -g` and `firecrawl login`) does not, and does not mention it. | [rules/install.md:15](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/skills/firecrawl-cli/rules/install.md#L15), [line 18](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/skills/firecrawl-cli/rules/install.md#L18), [line 30](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/skills/firecrawl-cli/rules/install.md#L30), [README.md:37](https://github.com/firecrawl/firecrawl-grok-plugin/blob/fc26fcf97921f5b4db93b06e000b6366e8d67c48/README.md#L37); the CLI was not run | hairline | new | one setup path, with the global install named in the README, small | drafted ([seal](../seals/firecrawl/K-05.md), same draft) |
+
+## Workarounds
+
+These were checked in a clean Grok home at the pin as far as stated; none was exercised in a Grok session, so each is documented help and the fractures stay drafted.
+
+- **K-01:** the manifest and README state AGPL-3.0. Treat the plugin under those terms (the text is at [gnu.org](https://www.gnu.org/licenses/agpl-3.0.txt)) until a license file is in the repository.
+- **K-02:** give Grok a Firecrawl API key as a header. A server of the same name in `~/.grok/config.toml` replaces the plugin's entry:
+
+  ```toml
+  [mcp_servers.firecrawl]
+  url = "https://mcp.firecrawl.dev/v2/mcp"
+  headers = { "Authorization" = "Bearer ${FIRECRAWL_API_KEY}" }
+  ```
+
+  Export `FIRECRAWL_API_KEY` in the shell that starts Grok (Grok expands `${VAR}` in `headers`, [07-mcp-servers.md:335](https://github.com/xai-org/grok-build/blob/2bdd1d6a6369de0e8c68132ea4539e9abd9e14a8/crates/codegen/xai-grok-pager/docs/user-guide/07-mcp-servers.md#L335)). In a clean home with the plugin installed, `grok mcp doctor firecrawl` then reads the server from `~/.grok/config.toml` and reports `27 tools discovered`, and `grok inspect` still lists the plugin's 12 skills and its command. Tool calls with a real key were not run.
+- **K-03 and K-04:** leave the CLI uninstalled unless you need it, and turn off the uploads and feedback calls you do not want. In `~/.grok/config.toml`:
+
+  ```toml
+  [permission]
+  deny = [
+    "MCPTool(firecrawl__firecrawl_parse)",
+    "MCPTool(firecrawl__firecrawl_search_feedback)",
+    "MCPTool(firecrawl__firecrawl_feedback)",
+    "Bash(firecrawl parse*)",
+    "Bash(firecrawl search-feedback*)",
+    "Bash(firecrawl alexandria feedback*)",
+  ]
+  ```
+
+  and `export FIRECRAWL_NO_SEARCH_FEEDBACK=1 FIRECRAWL_NO_ENDPOINT_FEEDBACK=1` before starting Grok, the opt-outs the skills name. Grok accepted the rules at the pin (`grok inspect --json`: `"loaded": 6`, `"skipped": []`); their effect in a session was not tested.
+
+<p align="center"><img src="https://brand.ormus.solutions/assets/marks/kintsugi-mark.svg" alt="Kintsugi mark" width="48" /></p>
