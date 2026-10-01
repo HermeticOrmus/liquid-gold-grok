@@ -20,6 +20,10 @@ Needs a GitHub token in GH_TOKEN or GITHUB_TOKEN (code search requires one).
 Without a token, or when code search refuses the token, the run continues with
 the other sources and the log says so.
 
+Quoted descriptions show an em dash as a hyphen, and when LEAK_LIST points at
+the maintainer's private term list (kept outside this repo), a term on it is
+replaced with "[term omitted]".
+
 Ranking: entries in xAI's catalog first (Grok users already see them, so their
 cracks matter most), then the rest by stars. Stars describe the vessel; they
 never admit it.
@@ -160,8 +164,32 @@ def enrich(cands: dict) -> None:
         log.append(f"not readable through the API (moved, private or deleted): {len(missing)}")
 
 
+def private_terms() -> list[re.Pattern]:
+    """Terms from the maintainer's private list (LEAK_LIST, outside this repo), never stored here."""
+    path = os.environ.get("LEAK_LIST")
+    if not path:
+        return []
+    terms = []
+    for t in Path(path).expanduser().read_text(encoding="utf-8").splitlines():
+        t = t.strip()
+        if not t or t.startswith("#"):
+            continue
+        t = t[len("people:"):].strip() if t.lower().startswith("people:") else t
+        # A term with regex characters is a regex; anything else matches as a whole word.
+        rx = t if set("\\|*+?[](){}^$") & set(t) else r"(?<![\w])" + re.escape(t) + r"(?![\w])"
+        terms.append(re.compile(rx, re.I))
+    return terms
+
+
+PRIVATE = private_terms()
+
+
 def cell(s: str) -> str:
-    return (s or "").replace("|", "/").replace("\n", " ").strip()
+    # No em dashes in this repo, so a quoted one is shown as a hyphen.
+    s = (s or "").replace("|", "/").replace("\n", " ").replace("\u2014", "-").strip()
+    for rx in PRIVATE:
+        s = rx.sub("[term omitted]", s)
+    return s
 
 
 def main() -> int:
