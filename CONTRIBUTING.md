@@ -54,7 +54,7 @@ Never reuse a crack ID. A crack you withdraw keeps its row with the reason.
 
 ## Re-assay a pinned entry
 
-1. `scripts/repin.sh <entry>` shows the commits and files that changed upstream since the pin, and flags changes to hooks, MCP config, manifests and scripts.
+1. `scripts/repin.sh --all` prints one drift row per card: the pinned SHA, the upstream head, the commits since the pin that touch the plugin folder, and how many of the changed files are hooks, MCP config, manifests or scripts. Pick a row that moved, then `scripts/repin.sh <entry>` shows its commits and files, and flags the changes to what it can execute.
 2. Read that diff with the five stages. New cracks get new IDs.
 3. Move the SHA in `.grok-plugin/marketplace.json` and in the card's Pinned SHA and Source rows in one pull request, and update the date of the assay.
 
