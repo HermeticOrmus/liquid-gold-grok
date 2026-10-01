@@ -4,7 +4,7 @@ This folder is where the next work on liquid-gold-grok comes from, in the open. 
 
 ## How it works
 
-1. **Stock.** Each run writes dated files from four sources: a competitor map (what other packs and tools in this domain do, from their public docs), an X mine (praise and complaints people posted, with links), a people mine (what users of this repo said in its issues, discussions, pull requests and forks), and a pantry queue (5 to 8 Goal atoms, each with a Done-when anyone can check).
+1. **Stock.** Each run writes dated files from four sources: a competitor map (what other packs and tools in this domain do, from their public docs), an X mine (praise and complaints people posted, with links), a people mine (what users of this repo said in its issues, discussions, pull requests and forks), and a pantry queue (5 to 8 Goal atoms, each with a Done-when anyone can check). Two more are written by scripts, so anyone can rerun them: the candidate mine (`scripts/mine.py`: plugins in xAI's catalog, GitHub code search and awesome lists with no card yet, ranked) and the drift report (`scripts/repin.sh --all`: pins whose upstream moved). The `mine` workflow runs both on a schedule and opens one pull request on the `pantry/mine` branch.
 2. **Menu.** [`MENU.md`](MENU.md) is generated from the newest queue. It orders the atoms and names exactly one as up next. Nobody edits it by hand; steering happens with the `pin` and `parked` labels on `[menu]` issues.
 3. **Goal issues.** The up-next atom becomes a `[menu]` issue with its Done-when. Anyone can take it: comment that you are on it, then open a pull request that says `Closes #<issue>`.
 4. **Done** means merged, released, and the Done-when holds.
@@ -19,6 +19,8 @@ Want to add to it? Open a [feedback issue](https://github.com/HermeticOrmus/liqu
 - X mine: [2026-09-30](2026-09-30-x-mine.md)
 - People mine: [2026-09-30](2026-09-30-people-mine.md)
 - Pantry queue: [2026-09-30](2026-09-30-pantry-queue.md)
+- Candidate mine: [2026-10-01](2026-10-01-candidate-mine.md)
+- Drift: [2026-10-01](2026-10-01-drift.md)
 
 ## Templates
 
