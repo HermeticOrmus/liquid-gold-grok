@@ -17,8 +17,11 @@ failed. Nothing is installed and nothing is assayed; the table is where the
 next assays come from.
 
 Needs a GitHub token in GH_TOKEN or GITHUB_TOKEN (code search requires one).
-Without a token, or when code search refuses the token, the run continues with
-the other sources and the log says so.
+Without a token, code search is skipped and the log says so. With a token, a
+rate-limit answer waits and retries; if xAI's catalog or code search still
+fails, nothing is written and the exit code is 2, so a partial mine never
+replaces a full one. GitHub rate-limits code search for the Actions workflow
+token, so the scheduled mine runs on the maintainer's machine.
 
 Quoted descriptions show an em dash as a hyphen, and when LEAK_LIST points at
 the maintainer's private term list (kept outside this repo), a term on it is
@@ -46,16 +49,27 @@ API = "https://api.github.com"
 REPO = re.compile(r"github\.com/([A-Za-z0-9_.-]+)/([A-Za-z0-9_.-]+)")
 TOKEN = os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN") or ""
 log: list[str] = []
+failed: list[str] = []   # required sources that could not be read; a partial mine is never written
 
 
-def request(url: str, body: dict | None = None) -> dict:
+def request(url: str, body: dict | None = None, tries: int = 3) -> dict:
+    """GitHub API call. A rate-limit answer (429, or 403 with no requests left) waits and retries."""
     headers = {"Accept": "application/vnd.github+json", "User-Agent": "liquid-gold-grok-mine"}
     if TOKEN:
         headers["Authorization"] = f"Bearer {TOKEN}"
     data = json.dumps(body).encode() if body is not None else None
-    req = urllib.request.Request(url, data=data, headers=headers)
-    with urllib.request.urlopen(req, timeout=30) as r:
-        return json.loads(r.read())
+    for attempt in range(1, tries + 1):
+        req = urllib.request.Request(url, data=data, headers=headers)
+        try:
+            with urllib.request.urlopen(req, timeout=30) as r:
+                return json.loads(r.read())
+        except urllib.error.HTTPError as e:
+            limited = e.code == 429 or (e.code == 403 and e.headers.get("x-ratelimit-remaining") == "0")
+            if not limited or attempt == tries:
+                raise
+            wait = e.headers.get("retry-after") or str(int(e.headers.get("x-ratelimit-reset") or 0) - int(time.time()))
+            time.sleep(min(max(int(wait) if wait.lstrip("-").isdigit() else 60, 1), 65))
+    raise AssertionError("unreachable")
 
 
 def raw(owner_repo: str, path: str) -> str:
@@ -85,6 +99,7 @@ def from_xai(cands: dict) -> None:
         market = json.loads(raw("xai-org/plugin-marketplace", ".grok-plugin/marketplace.json"))
     except (urllib.error.URLError, KeyError, ValueError) as e:
         log.append(f"xai-org/plugin-marketplace: not read ({e})")
+        failed.append("xai-org/plugin-marketplace")
         return
     n = 0
     for p in market.get("plugins", []):
@@ -114,6 +129,7 @@ def from_code_search(cands: dict) -> None:
                 res = request(url)
             except urllib.error.HTTPError as e:
                 log.append(f"code search `{q}` page {page}: HTTP {e.code}, stopped")
+                failed.append(f"code search `{q}` (HTTP {e.code})")
                 break
             total = res.get("total_count", 0)
             for item in res.get("items", []):
@@ -203,6 +219,11 @@ def main() -> int:
     from_xai(cands)
     from_code_search(cands)
     from_awesome(cands)
+    if failed:
+        print("mine: not written, a required source failed: " + "; ".join(failed), file=sys.stderr)
+        for line in log:
+            print(f"  {line}", file=sys.stderr)
+        return 2
     seen = already_carded()
     for key in list(cands):
         if key in seen or (key.startswith("hermeticormus/") and "xai" not in cands[key]["sources"]):
