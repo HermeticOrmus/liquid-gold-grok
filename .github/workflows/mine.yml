@@ -18,7 +18,7 @@ jobs:
   mine:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Mine public sources for candidates
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -31,7 +31,10 @@ jobs:
             echo
             echo "Read on $(date -u +%F) by \`scripts/repin.sh --all\`. A row that moved is a lead for a re-assay; the pin moves only through one (see CONTRIBUTING.md)."
             echo
-            scripts/repin.sh --all || echo "Some upstreams could not be read; see the rows marked above."
+            rc=0
+            scripts/repin.sh --all || rc=$?
+            if (( rc != 0 )); then echo; echo "Some upstreams could not be read, or no longer hold their pin; see the rows marked above."; fi
+            echo "DRIFT_RC=$rc" >> "$GITHUB_ENV"
           } > "$out"
       - name: Open or update the pantry pull request
         env:
@@ -47,3 +50,8 @@ jobs:
           gh pr view pantry/mine --json state --jq .state 2>/dev/null | grep -q OPEN || gh pr create --head pantry/mine \
             --title "docs(pantry): stock the candidate mine and drift report" \
             --body "The scheduled mine: plugins in public sources with no card yet, and pins whose upstream moved. Read both files under pantry/, then merge. New assays and pin moves are their own pull requests."
+      - name: Fail when an upstream could not be read
+        if: env.DRIFT_RC != '0'
+        run: |
+          echo "repin.sh --all exited $DRIFT_RC; the drift report in the pantry pull request names the rows."
+          exit 1
