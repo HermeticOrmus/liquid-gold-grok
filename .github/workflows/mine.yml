@@ -1,0 +1,49 @@
+name: mine
+
+# Restocks the pantry: the candidate mine (plugins not assayed yet) and the
+# drift report (pins whose upstream moved). The result is one pull request on
+# the pantry/mine branch, updated in place, for a maintainer to read and merge.
+# Nothing is assayed and no pin moves here; that stays a reviewed pull request.
+
+on:
+  schedule:
+    - cron: "17 9 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  mine:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Mine public sources for candidates
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 scripts/mine.py
+      - name: Report drift for every pin
+        run: |
+          out="pantry/$(date -u +%F)-drift.md"
+          {
+            echo "# Drift: liquid-gold-grok"
+            echo
+            echo "Read on $(date -u +%F) by \`scripts/repin.sh --all\`. A row that moved is a lead for a re-assay; the pin moves only through one (see CONTRIBUTING.md)."
+            echo
+            scripts/repin.sh --all || echo "Some upstreams could not be read; see the rows marked above."
+          } > "$out"
+      - name: Open or update the pantry pull request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B pantry/mine
+          git add pantry/
+          git diff --cached --quiet && { echo "nothing new"; exit 0; }
+          git commit -q -m "docs(pantry): stock the candidate mine and drift report"
+          git push -f origin pantry/mine
+          gh pr view pantry/mine --json state --jq .state 2>/dev/null | grep -q OPEN || gh pr create --head pantry/mine \
+            --title "docs(pantry): stock the candidate mine and drift report" \
+            --body "The scheduled mine: plugins in public sources with no card yet, and pins whose upstream moved. Read both files under pantry/, then merge. New assays and pin moves are their own pull requests."
