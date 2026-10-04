@@ -48,7 +48,7 @@ Every entry installs from its upstream repository at the pinned commit, so what 
 
 ## Catalog
 
-Two stocks and one later reading hold 41 entries: 11 from the HermeticOrmus Libre packs and design-mastery, 30 by other authors. The two stocks were assayed with grok 1.0.44. The ledgers hold 237 cracks, and 66 of them are sealed.
+Two stocks and one later reading hold 41 entries: 11 from the HermeticOrmus Libre packs and design-mastery, 30 by other authors. The two stocks were assayed with grok 1.0.44. The ledgers hold 238 cracks, and 66 of them are sealed.
 
 | Level | Entries |
 |-------|---------|
