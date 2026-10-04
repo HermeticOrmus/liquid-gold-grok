@@ -92,6 +92,16 @@
       }
     },
     {
+      "name": "exa",
+      "description": "Exa's hosted MCP server for semantic web search and reading a page as markdown, with a research skill that plans searches and cites sources. Sign-in is OAuth; see the entry card.",
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/exa-labs/exa-grok-plugin.git",
+        "sha": "879fae0c814765c43f39ea8f56aae1d44e9d9bc8"
+      }
+    },
+    {
       "name": "feature-dev",
       "description": "Guided feature development in seven phases, with codebase explorer, architect and reviewer agents.",
       "category": "development",

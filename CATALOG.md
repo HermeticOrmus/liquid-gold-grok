@@ -3,10 +3,10 @@
 Every entry in the library, with its level. Each name links to its card: what it does, who it is for, what it can execute, the assay, and the ledger of cracks and seals. The rules behind the levels are in [RUBRIC.md](RUBRIC.md).
 
 - **gold** (12): hallmarked, no break or fracture open.
-- **assayed** (15): admitted, open fractures carry a workaround in the card.
+- **assayed** (16): admitted, open fractures carry a workaround in the card.
 - **watch** (14): not admitted yet; the card says why. Watch entries are not in the marketplace.
 
-41 entries: 11 from the HermeticOrmus Libre packs and design-mastery, 30 by other authors. The first stock was assayed on 2026-09-30 and the second on 2026-10-01, both with grok 1.0.44. The ledgers hold 238 cracks, 66 of them sealed; the rest carry a workaround, a seal draft in [`seals/`](seals/), or the reason an entry waits.
+42 entries: 11 from the HermeticOrmus Libre packs and design-mastery, 31 by other authors. The first stock was assayed on 2026-09-30 and the second on 2026-10-01, both with grok 1.0.44. The ledgers hold 242 cracks, 66 of them sealed; the rest carry a workaround, a seal draft in [`seals/`](seals/), or the reason an entry waits.
 
 Install any gold or assayed entry after adding the marketplace once:
 
@@ -32,6 +32,7 @@ grok plugin marketplace add HermeticOrmus/liquid-gold-grok
 | [compound-engineering](entries/compound-engineering.md) | assayed | Engineering workflow | [Kieran Klaassen and Trevin Chow, Every](https://github.com/EveryInc) | 5 found, 2 sealed | `grok plugin install compound-engineering@liquid-gold-grok` | `1fd12d6` |
 | [datadog](entries/datadog.md) | assayed | Observability | [Datadog](https://www.datadoghq.com/) | 3 found, 0 sealed | `grok plugin install datadog@liquid-gold-grok` | `083b478` |
 | [domain-driven-design](entries/domain-driven-design.md) | assayed | Architecture | [Diego Bodart](https://github.com/HermeticOrmus) | 5 found, 2 sealed | `grok plugin install domain-driven-design@liquid-gold-grok` | `c493984` |
+| [exa](entries/exa.md) | assayed | Web search | [Exa](https://github.com/exa-labs) | 4 found, 0 sealed | `grok plugin install exa@liquid-gold-grok` | `879fae0` |
 | [feature-dev](entries/feature-dev.md) | assayed | Engineering workflow | [Anthropic](https://github.com/anthropics) | 4 found, 0 sealed | `grok plugin install feature-dev@liquid-gold-grok` | `ab024cd` |
 | [handoff](entries/handoff.md) | assayed | Session workflow | [Diego Bodart](https://github.com/HermeticOrmus) | 9 found, 6 sealed | `grok plugin install handoff@liquid-gold-grok` | `c5822d8` |
 | [kubernetes-operations](entries/kubernetes-operations.md) | assayed | DevOps | [Diego Bodart](https://github.com/HermeticOrmus) | 9 found, 4 sealed | `grok plugin install kubernetes-operations@liquid-gold-grok` | `a810d2f` |
