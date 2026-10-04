@@ -30,6 +30,16 @@
       }
     },
     {
+      "name": "clickhouse",
+      "description": "ClickHouse best-practice skills and the ClickHouse Cloud remote MCP server for read-only SQL, schema, services, backups, ClickPipes and billing.",
+      "category": "database",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/ClickHouse/clickhouse-grok-plugin.git",
+        "sha": "5aa19f15f10253b13a6f4edd0cb5e2681ec28747"
+      }
+    },
+    {
       "name": "cloudflare",
       "description": "Cloudflare developer platform skills (Workers, Durable Objects, Agents SDK, Wrangler, Sandbox, Turnstile, Cloudflare One) and the hosted Cloudflare MCP server.",
       "category": "cloud",
