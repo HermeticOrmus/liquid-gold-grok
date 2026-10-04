@@ -72,6 +72,9 @@ scripts/verify.sh
 # Or only the entries you touched
 scripts/verify.sh <entry> <entry>
 
+# Both, the way CI runs them (entries are optional)
+scripts/check.sh
+
 # Validate one plugin folder at its pin
 grok plugin validate <path to the plugin folder>
 ```
@@ -87,7 +90,7 @@ grok plugin details <entry>
 
 A local marketplace registers under its folder name; the published one registers as `liquid-gold-grok`.
 
-CI runs the same checks on every pull request (`.github/workflows/verify.yml`). A first-time contributor's CI run waits for a maintainer to approve it.
+CI runs `scripts/check.sh` on every pull request and on every push to main (`.github/workflows/check.yml`). A first-time contributor's CI run waits for a maintainer to approve it.
 
 ## Style
 

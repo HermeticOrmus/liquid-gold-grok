@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+# prove: run this library's one check (scripts/check.sh) on one exact head and keep the evidence.
+#
+#   bin/prove                               the checkout this file sits in, at HEAD
+#   bin/prove --pr N [--expect SHA]         a pull request head, in a scratch clone
+#   bin/prove --ref REF [--expect SHA]      a branch or tag, in a scratch clone
+#   bin/prove [...] -- <entry> ...          the install step only for these entries
+#
+# Prints one JSON line on stdout: head, source, dirty, exit, evidence. The check's own
+# output goes to stderr and to <evidence>/check.log. The exit code is the check's, 3 when
+# the head is not the one --expect names, 2 on a usage or clone error.
+# Evidence lives under $VERIFY_LIQUID_GOLD_GROK_HOME (default
+# ${XDG_STATE_HOME:-$HOME/.local/state}/verify-liquid-gold-grok/evidence/) and survives cleanup.
+# The scratch clone is removed on exit.
+set -euo pipefail
+IFS=$'\n\t'
+APP=liquid-gold-grok
+URL="${VERIFY_LIQUID_GOLD_GROK_URL:-https://github.com/HermeticOrmus/$APP.git}"
+STATE="${VERIFY_LIQUID_GOLD_GROK_HOME:-${XDG_STATE_HOME:-$HOME/.local/state}/verify-$APP}"
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(cd "$HERE/../../../.." && pwd)"
+
+usage() { sed -n '2,8p' "$0" >&2; exit 2; }
+pr="" ref="" expect="" entries=()
+while (( $# )); do
+  case "$1" in
+    --pr) pr="${2:-}"; shift 2 || usage ;;
+    --ref) ref="${2:-}"; shift 2 || usage ;;
+    --expect) expect="${2:-}"; shift 2 || usage ;;
+    --) shift; entries=("$@"); break ;;
+    -h|--help) usage ;;
+    *) usage ;;
+  esac
+done
+[[ -n "$pr" && -n "$ref" ]] && usage
+
+work=""
+trap '[[ -n "$work" ]] && rm -rf "$work"' EXIT
+if [[ -n "$pr$ref" ]]; then
+  work="$(mktemp -d)"; dir="$work/$APP"
+  git clone -q --filter=blob:none "$URL" "$dir" || { echo "clone of $URL failed" >&2; exit 2; }
+  if [[ -n "$pr" ]]; then
+    git -C "$dir" fetch -q origin "pull/$pr/head" || { echo "no pull request $pr" >&2; exit 2; }
+    source="pr $pr"
+  else
+    git -C "$dir" fetch -q origin "$ref" || { echo "no ref $ref" >&2; exit 2; }
+    source="ref $ref"
+  fi
+  git -C "$dir" checkout -q --detach FETCH_HEAD
+else
+  dir="$ROOT"; source="checkout"
+fi
+head="$(git -C "$dir" rev-parse HEAD)"
+dirty=false; [[ -n "$(git -C "$dir" status --porcelain)" ]] && dirty=true
+
+result() {   # result <exit> <evidence>
+  python3 -c 'import json,sys; h,s,d,e,v=sys.argv[1:]; print(json.dumps({"head":h,"source":s,"dirty":d=="true","exit":int(e),"evidence":v}))' \
+    "$head" "$source" "$dirty" "$1" "$2"
+}
+if [[ -n "$expect" && "$head" != "$expect"* ]]; then
+  echo "head is $head, not the expected $expect" >&2
+  result 3 ""; exit 3
+fi
+
+ev="$STATE/evidence/${head:0:12}-$(date +%Y%m%d-%H%M%S)"
+mkdir -p "$ev"
+{
+  echo "head: $(git -C "$dir" log -1 --format='%H %s')"
+  echo "source: $source"
+  echo "dirty: $dirty"
+  echo "entries: ${entries[*]:-all}"
+  echo "grok: $(grok --version 2>/dev/null || echo 'not found')"
+} > "$ev/head.txt"
+rc=0
+(cd "$dir" && bash scripts/check.sh "${entries[@]}") > >(tee "$ev/check.log" >&2) 2>&1 || rc=$?
+wait
+result "$rc" "$ev" | tee "$ev/result.json"
+exit "$rc"
