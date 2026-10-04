@@ -1,0 +1,79 @@
+# clickhouse
+
+ClickHouse's own Grok Build plugin: a best-practices skill with 31 rules for schema, queries and inserts, a setup skill, and the ClickHouse Cloud remote MCP server for read-only access to a Cloud cluster.
+
+| | |
+|---|---|
+| Level | **assayed** |
+| Domain | Database |
+| Author | [ClickHouse](https://clickhouse.com) |
+| License | [Apache-2.0](https://github.com/ClickHouse/clickhouse-grok-plugin/blob/5aa19f15f10253b13a6f4edd0cb5e2681ec28747/LICENSE) |
+| Source | [ClickHouse/clickhouse-grok-plugin](https://github.com/ClickHouse/clickhouse-grok-plugin/tree/5aa19f15f10253b13a6f4edd0cb5e2681ec28747) |
+| Pinned SHA | `5aa19f15f10253b13a6f4edd0cb5e2681ec28747` (committed 2026-07-29, version 1.0.0) |
+| Components at the pin | skills 2, agents 0, commands 0, hook events 0, MCP servers 1 |
+| Assayed | 2026-10-04 with grok 1.0.46 |
+
+## Who it is for
+
+Developers who write ClickHouse SQL or table schemas and want Grok to follow ClickHouse's rules for keys, types, joins and inserts, and who use ClickHouse Cloud and want Grok to inspect a cluster through the hosted MCP server.
+
+## Install
+
+```bash
+grok plugin marketplace add HermeticOrmus/liquid-gold-grok
+grok plugin install clickhouse@liquid-gold-grok
+```
+
+ClickHouse Cloud has to have the remote MCP server turned on for the service before it will accept a connection: in the console, open the service, click Connect, select MCP, and enable it ([ClickHouse's remote MCP page](https://clickhouse.com/docs/products/cloud/features/ai-ml/remote-mcp), read 2026-10-04). Then open `/mcps`, select `clickhouse` and press `i` for the OAuth sign-in. Stay on that server. The best-practices skill also describes other connection methods; the workaround under K-01 says which ones to leave alone.
+
+## Why it is assayed
+
+Every gate passed at the pin. Grok loads both skills and the hosted MCP server, and `grok mcp doctor clickhouse` starts that server. The handshake stops on OAuth, which is the sign-in the README describes. The license file at the pin is the Apache License, Version 2.0, January 2004, and the manifest states `Apache-2.0`.
+
+The bundled server matches the README's promise. `.mcp.json` names one endpoint, `https://mcp.clickhouse.cloud/mcp`. ClickHouse's remote MCP page says that server exposes 13 tools and that all of them are read-only (`readOnlyHint: true`). The setup skill lists the same 13 tools. An unauthenticated initialize returns HTTP 401 with the server's OAuth `resource_metadata` URL.
+
+One fracture is open. The `clickhouse-best-practices` skill loads for the model on its own, and its connectivity rule tells the agent to install the self-hosted `mcp-clickhouse` package with an unpinned `pip install`, to pass the database password on the `clickhouse client` command line and in an `X-ClickHouse-Key` header, and to turn writes on with `CLICKHOUSE_ALLOW_WRITE_ACCESS=true` (K-01). The README says the plugin connects only to the hosted endpoint, stores no secrets, and that every MCP tool is read-only. The workaround below keeps a Grok session on the server the plugin actually registers. A seal draft asks ClickHouse to narrow that rule to the hosted server. It has not been sent. What is left open besides that fracture are hairlines: the README's install lines do not work on grok 1.0.46 (K-02), the setup steps skip the console switch the remote server requires (K-03), the README's summary names schema and SQL and not the billing, backup and ClickPipe tools (K-04), and the README says a weekly action pushes skill updates while the workflow still has a placeholder app id (K-05).
+
+## What it can execute
+
+- **Hooks:** none.
+- **Scripts:** none shipped. The best-practices skill tells the agent to run, when it follows the connectivity rule, `claude mcp add`, `pip install mcp-clickhouse`, `clickhouse client` with `--password`, and `curl` against the service's HTTPS port with the password in a header (K-01). The setup skill tells the agent to run queries through the hosted server's `run_select_query` tool.
+- **MCP servers:** `clickhouse`, HTTP, at `https://mcp.clickhouse.cloud/mcp` ([.mcp.json:5](https://github.com/ClickHouse/clickhouse-grok-plugin/blob/5aa19f15f10253b13a6f4edd0cb5e2681ec28747/.mcp.json#L5)). Nothing is installed locally for that server. Sign-in is OAuth. The protected-resource metadata lists scopes `mcp:access`, `openid`, `profile` and `email`. ClickHouse's page lists 13 read-only tools: `run_select_query`, `list_databases`, `list_tables`, `get_organizations`, `get_organization_details`, `get_services_list`, `get_service_details`, `list_service_backups`, `get_service_backup_details`, `get_service_backup_configuration`, `list_clickpipes`, `get_clickpipe` and `get_organization_cost`.
+- **Network:** the hosted MCP server, once the user signs in. If the agent follows the connectivity rule, also PyPI for `mcp-clickhouse` (version 0.7.0 was the newest on 2026-10-04), the cluster's native secure port 9440, and the cluster's HTTPS port 8443 (K-01).
+- **Disclosed in its README:** partly. The README names the hosted endpoint, OAuth, and that the tools are read-only ([README.md:31](https://github.com/ClickHouse/clickhouse-grok-plugin/blob/5aa19f15f10253b13a6f4edd0cb5e2681ec28747/README.md#L31)). It does not mention the CLI, the HTTP interface, the self-hosted server, the write switch, or the billing tool (K-01, K-04).
+
+## Assay
+
+| Check | Result | Evidence |
+|-------|--------|----------|
+| Ready the vessel | pass | pinned `5aa19f1`, clean `GROK_HOME` and `HOME`: `No plugins installed`, `No marketplace sources configured` |
+| Gate: validate | pass | `grok plugin validate` on the checkout: `name: clickhouse`, `version: 1.0.0`, `components: 1 skill dir(s), 0 command dir(s), 0 agent dir(s), MCP servers` |
+| Gate: install at the pin | pass | `grok plugin install https://github.com/ClickHouse/clickhouse-grok-plugin.git@5aa19f15f10253b13a6f4edd0cb5e2681ec28747 --trust`: `Installed 1 plugin(s) ... clickhouse`; the registry records commit `5aa19f15f10253b13a6f4edd0cb5e2681ec28747` |
+| Gate: details | pass | `clickhouse v1.0.0`, `components: 1 skill dir(s), 0 command dir(s), 0 agent dir(s), MCP servers` |
+| Gate: inspect | pass | `grok inspect --json` from an empty folder: skills `clickhouse-best-practices` and `setup`, MCP server `clickhouse` (`http`, `https://mcp.clickhouse.cloud/mcp`); on-disk counts match (`skills=2 agents=0 commands=0 hooks=0 mcp=1`) |
+| MCP server under Grok | starts, sign-in needed | from a directory with no `.mcp.json`, `grok mcp doctor clickhouse`: `plugin: clickhouse 1 server`, `server started (0.0s)`, then `handshake failed` with `Auth required` and `resource_metadata="https://mcp.clickhouse.cloud/.well-known/oauth-protected-resource/mcp"`. A direct initialize POST to that URL returned HTTP 401 `{"error":"Authentication required"}` |
+| Reading: promises against components | pass, with copy cracks | the README's two skills and one hosted server are what Grok loads; the install lines and the weekly-sync sentence do not hold (K-02, K-05), and the setup steps skip the console enable (K-03) |
+| Reading: license | pass | `LICENSE` at the repository root is the Apache License, Version 2.0, January 2004; `"license": "Apache-2.0"` in [.grok-plugin/plugin.json:12](https://github.com/ClickHouse/clickhouse-grok-plugin/blob/5aa19f15f10253b13a6f4edd0cb5e2681ec28747/.grok-plugin/plugin.json#L12); `license: Apache-2.0` on the best-practices skill. GitHub's API reports SPDX `Apache-2.0` for this repository |
+| Reading: what it can execute | pass, with K-01 and K-04 | one hosted HTTP server, OAuth, read-only on ClickHouse's page; the best-practices rule adds an unpinned `pip install`, a password on the command line, and a write switch (K-01); billing is in the setup skill and on ClickHouse's page, not in the README summary (K-04) |
+| Reading: maintenance | last push 2026-07-29, 0 open issues, 1 closed pull request, 0 stars | GitHub API, 2026-10-04 |
+| Hands | not run | a Grok session costs model time, and no ClickHouse Cloud account was connected for this assay |
+
+`setup` sets `disable-model-invocation: true`. Grok 1.0.46's skills guide says that flag keeps the model from invoking the skill and leaves it as a slash command (`docs/user-guide/08-skills.md` line 111 in the guide grok writes into a fresh `GROK_HOME`). `grok inspect --json` lists `setup` with `userInvocable: true`, which is what that flag still allows. `clickhouse-best-practices` does not set the flag, so the model can invoke it. The command list in the same home's `docs/user-guide/04-slash-commands.md` line 218 names `/plugins`, not `/plugin`.
+
+The best-practices rules are committed under `skills/`. The repository also records a gitlink for `submodules/agent-skills` (`6e5458d`). `grok plugin install` at the pin loads the committed skill files; this assay did not initialize the submodule.
+
+## Ledger
+
+| ID | Crack | Evidence | Grade | Tracker | Seal | State |
+|----|-------|----------|-------|---------|------|-------|
+| K-01 | The best-practices skill, which the model can invoke on its own, tells the agent to connect with `claude mcp add`, an unpinned `pip install mcp-clickhouse`, `clickhouse client --password`, and `curl` with the password in `X-ClickHouse-Key`, and to turn writes on with `CLICKHOUSE_ALLOW_WRITE_ACCESS=true`. The README says the plugin connects only to the read-only hosted MCP server and stores no secrets. The server Grok registers is that hosted URL. | [agent-connect-mcp.md:27](https://github.com/ClickHouse/clickhouse-grok-plugin/blob/5aa19f15f10253b13a6f4edd0cb5e2681ec28747/skills/clickhouse-best-practices/rules/agent-connect-mcp.md#L27), [line 50](https://github.com/ClickHouse/clickhouse-grok-plugin/blob/5aa19f15f10253b13a6f4edd0cb5e2681ec28747/skills/clickhouse-best-practices/rules/agent-connect-mcp.md#L50), [line 60](https://github.com/ClickHouse/clickhouse-grok-plugin/blob/5aa19f15f10253b13a6f4edd0cb5e2681ec28747/skills/clickhouse-best-practices/rules/agent-connect-mcp.md#L60), [line 75](https://github.com/ClickHouse/clickhouse-grok-plugin/blob/5aa19f15f10253b13a6f4edd0cb5e2681ec28747/skills/clickhouse-best-practices/rules/agent-connect-mcp.md#L75), [line 88](https://github.com/ClickHouse/clickhouse-grok-plugin/blob/5aa19f15f10253b13a6f4edd0cb5e2681ec28747/skills/clickhouse-best-practices/rules/agent-connect-mcp.md#L88); the same instructions are compiled into [AGENTS.md:1713](https://github.com/ClickHouse/clickhouse-grok-plugin/blob/5aa19f15f10253b13a6f4edd0cb5e2681ec28747/skills/clickhouse-best-practices/AGENTS.md#L1713), [line 1749](https://github.com/ClickHouse/clickhouse-grok-plugin/blob/5aa19f15f10253b13a6f4edd0cb5e2681ec28747/skills/clickhouse-best-practices/AGENTS.md#L1749) and [line 1756](https://github.com/ClickHouse/clickhouse-grok-plugin/blob/5aa19f15f10253b13a6f4edd0cb5e2681ec28747/skills/clickhouse-best-practices/AGENTS.md#L1756); [README.md:31](https://github.com/ClickHouse/clickhouse-grok-plugin/blob/5aa19f15f10253b13a6f4edd0cb5e2681ec28747/README.md#L31); `pip` index on 2026-10-04: `mcp-clickhouse` 0.7.0 | fracture | new | narrow the rule to the hosted read-only server the plugin registers, small | drafted ([seal](../seals/clickhouse/K-01.md)) |
+| K-02 | The install lines do not work on grok 1.0.46. `grok plugin install clickhouse --trust` finds no marketplace entry, and `grok --plugin-dir` is not a flag. The setup skill says `/plugin`; Grok's command is `/plugins`. | [README.md:10](https://github.com/ClickHouse/clickhouse-grok-plugin/blob/5aa19f15f10253b13a6f4edd0cb5e2681ec28747/README.md#L10), [line 19](https://github.com/ClickHouse/clickhouse-grok-plugin/blob/5aa19f15f10253b13a6f4edd0cb5e2681ec28747/README.md#L19), [skills/clickhouse-best-practices/README.md:10](https://github.com/ClickHouse/clickhouse-grok-plugin/blob/5aa19f15f10253b13a6f4edd0cb5e2681ec28747/skills/clickhouse-best-practices/README.md#L10), [setup/SKILL.md:21](https://github.com/ClickHouse/clickhouse-grok-plugin/blob/5aa19f15f10253b13a6f4edd0cb5e2681ec28747/skills/setup/SKILL.md#L21); in a clean home, `grok plugin install clickhouse --trust` exits 1 with `No marketplace plugin named "clickhouse" in any registered marketplace`; `grok --plugin-dir ./clickhouse-grok-plugin --version` exits 2 with `unexpected argument '--plugin-dir'`; `grok plugin install ClickHouse/clickhouse-grok-plugin --trust` installs `clickhouse` at commit `5aa19f1` | hairline | new | replace the install lines with the shorthand and a pinned URL, and say `/plugins`, small | drafted ([seal](../seals/clickhouse/K-02.md)) |
+| K-03 | The setup skill's three steps never say to enable the remote MCP server on the service. ClickHouse's page says the server must be enabled per service before it accepts connections. | [setup/SKILL.md:13](https://github.com/ClickHouse/clickhouse-grok-plugin/blob/5aa19f15f10253b13a6f4edd0cb5e2681ec28747/skills/setup/SKILL.md#L13) to [line 17](https://github.com/ClickHouse/clickhouse-grok-plugin/blob/5aa19f15f10253b13a6f4edd0cb5e2681ec28747/skills/setup/SKILL.md#L17); [remote MCP page](https://clickhouse.com/docs/products/cloud/features/ai-ml/remote-mcp), read 2026-10-04: "The remote MCP server must be enabled per service before it can accept connections." | hairline | new | add the console enable step before OAuth, small | drafted ([seal](../seals/clickhouse/K-03.md)) |
+| K-04 | The README says the server is for schema inspection and read-only SQL. The setup skill and ClickHouse's page also list organization, service, backup, ClickPipe and billing tools, including `get_organization_cost`. | [README.md:25](https://github.com/ClickHouse/clickhouse-grok-plugin/blob/5aa19f15f10253b13a6f4edd0cb5e2681ec28747/README.md#L25); [setup/SKILL.md:39](https://github.com/ClickHouse/clickhouse-grok-plugin/blob/5aa19f15f10253b13a6f4edd0cb5e2681ec28747/skills/setup/SKILL.md#L39) to [line 60](https://github.com/ClickHouse/clickhouse-grok-plugin/blob/5aa19f15f10253b13a6f4edd0cb5e2681ec28747/skills/setup/SKILL.md#L60); the same 13 tools on the remote MCP page, including `get_organization_cost` | hairline | new | name those tools in the README summary, small | drafted ([seal](../seals/clickhouse/K-03.md), same draft) |
+| K-05 | The README says a weekly GitHub Action pushes skill updates from the submodule straight to `main`. The workflow's app id is the placeholder `REPLACE_WITH_APP_ID`, so the job cannot authenticate. Pull request #1 says the workflow will fail until the GitHub App exists. | [README.md:35](https://github.com/ClickHouse/clickhouse-grok-plugin/blob/5aa19f15f10253b13a6f4edd0cb5e2681ec28747/README.md#L35); [sync-agent-skills.yml:16](https://github.com/ClickHouse/clickhouse-grok-plugin/blob/5aa19f15f10253b13a6f4edd0cb5e2681ec28747/.github/workflows/sync-agent-skills.yml#L16); [pull request #1](https://github.com/ClickHouse/clickhouse-grok-plugin/pull/1) body: "Until the Github app is not created, the workflow will fail due to adding placeholders." | hairline | new | say the sync waits on the GitHub App, or drop the sentence until the app id is real, small | drafted ([seal](../seals/clickhouse/K-05.md)) |
+
+## Workarounds
+
+- **K-01:** use the server the plugin registers, and do not follow the connectivity rule's other options. After the install, enable MCP on the ClickHouse Cloud service, open `/mcps`, select `clickhouse` and press `i`. Do not run `pip install mcp-clickhouse`, do not export `CLICKHOUSE_ALLOW_WRITE_ACCESS`, and do not put the database password on a `clickhouse client` or `curl` command line. The doctor check above was run at the pin: Grok starts `https://mcp.clickhouse.cloud/mcp` from the plugin and the server answers with its OAuth challenge. A signed-in session was not run.
+
+<p align="center"><img src="https://brand.ormus.solutions/assets/marks/kintsugi-mark.svg" alt="Kintsugi mark" width="48" /></p>
