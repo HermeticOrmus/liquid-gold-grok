@@ -17,6 +17,12 @@ Checks:
      RUBRIC.md: a gold card has no open fracture or break, an assayed card has
      no open break. A row is closed when its State starts with sealed,
      hallmarked or withdrawn.
+  7. The level counts (gold, assayed, watch), the entry total, and the crack
+     and sealed totals written in CATALOG.md and README.md match the cards in
+     entries/. Each CATALOG.md cell "N found, M sealed" matches that card's
+     ledger. A crack is one ledger row. The row counts as sealed when its
+     State starts with sealed or hallmarked. A withdrawn row stays in the
+     found total and is not sealed.
 Exits 1 and prints each problem when any check fails.
 """
 import json
@@ -26,6 +32,14 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SHA = re.compile(r"^[0-9a-f]{40}$")
+LEVEL_COUNT = re.compile(r"\b(gold|assayed|watch)\b(?:\*\*)? \((\d+)\)")
+ENTRY_TOTAL = re.compile(r"\b(\d+) entries\b")
+CRACK_TOTAL = re.compile(r"\b(\d+) cracks\b")
+SEALED_TOTAL = re.compile(r"\b(\d+) of them (?:are )?sealed\b")
+CRACK_CELL = re.compile(
+    r"^\| \[[^\]]+\]\(entries/([^)]+)\.md\).*\|\s*(\d+) found,\s*(\d+) sealed\s*\|",
+    re.M,
+)
 problems = []
 
 
@@ -84,6 +98,92 @@ def check_ledger(rel: str, text: str, level: str) -> None:
             fail(f"{rel}: assayed, but {crack_id} is an open break")
 
 
+def ledger_found_and_sealed(text: str) -> tuple[int, int]:
+    """Count cracks on one card.
+
+    Every well-formed ledger row was found, including a withdrawn row: the
+    rubric keeps that row and never reuses its ID. A row is sealed when its
+    State starts with sealed or hallmarked. Withdrawn closes a row for the
+    level check and is not a seal, so it counts as found only.
+    """
+    section = text.split("## Ledger", 1)
+    if len(section) < 2:
+        return 0, 0
+    body = section[1].split("\n## ", 1)[0]
+    found = sealed = 0
+    for line in body.splitlines():
+        if not re.match(r"^\| K-\d+ ", line):
+            continue
+        cells = [c.strip() for c in re.split(r"(?<!\\)\|", line.strip().strip("|"))]
+        if len(cells) != 7:
+            continue
+        found += 1
+        if cells[6].lower().startswith(("sealed", "hallmarked")):
+            sealed += 1
+    return found, sealed
+
+
+def require_count(rel: str, text: str, pattern: re.Pattern[str], held: int, label: str) -> None:
+    written = sorted({int(n) for n in pattern.findall(text)})
+    if not written:
+        fail(f"{rel}: {label} is not written; the cards hold {held}")
+        return
+    for n in written:
+        if n != held:
+            fail(f"{rel}: {label} is written as {n}; the cards hold {held}")
+
+
+def check_counts() -> None:
+    by_entry: dict[str, tuple[int, int]] = {}
+    levels = {"gold": 0, "assayed": 0, "watch": 0}
+    for path in sorted((ROOT / "entries").glob("*.md")):
+        text = path.read_text(encoding="utf-8")
+        level = re.sub(r"[*\s]", "", card_field(text, "Level"))
+        if level in levels:
+            levels[level] += 1
+        by_entry[path.stem] = ledger_found_and_sealed(text)
+    cracks = sum(found for found, _ in by_entry.values())
+    sealed_total = sum(sealed for _, sealed in by_entry.values())
+
+    for rel in ("CATALOG.md", "README.md"):
+        text = (ROOT / rel).read_text(encoding="utf-8")
+        seen: dict[str, set[int]] = {name: set() for name in levels}
+        for level, n in LEVEL_COUNT.findall(text):
+            seen[level].add(int(n))
+        for level, held in levels.items():
+            if not seen[level]:
+                fail(f"{rel}: {level} count is not written; the cards hold {held}")
+            for n in sorted(seen[level]):
+                if n != held:
+                    fail(f"{rel}: {level} count is written as {n}; the cards hold {held}")
+        require_count(rel, text, ENTRY_TOTAL, len(by_entry), "entry total")
+        require_count(rel, text, CRACK_TOTAL, cracks, "crack total")
+        require_count(rel, text, SEALED_TOTAL, sealed_total, "sealed total")
+
+    cells: dict[str, set[tuple[int, int]]] = {}
+    for stem, found_s, sealed_s in CRACK_CELL.findall((ROOT / "CATALOG.md").read_text(encoding="utf-8")):
+        cells.setdefault(stem, set()).add((int(found_s), int(sealed_s)))
+    for stem, (found, sealed) in sorted(by_entry.items()):
+        written = cells.get(stem)
+        if not written:
+            fail(
+                f"CATALOG.md: {stem} has no crack cell; "
+                f"the card holds {found} found, {sealed} sealed"
+            )
+            continue
+        for written_found, written_sealed in sorted(written):
+            if written_found != found:
+                fail(f"CATALOG.md: {stem} found is written as {written_found}; the card holds {found}")
+            if written_sealed != sealed:
+                fail(f"CATALOG.md: {stem} sealed is written as {written_sealed}; the card holds {sealed}")
+    for stem in sorted(set(cells) - set(by_entry)):
+        for written_found, written_sealed in sorted(cells[stem]):
+            fail(
+                f"CATALOG.md: {stem} is written as {written_found} found, {written_sealed} sealed; "
+                "entries/ has no such card"
+            )
+
+
 def main() -> int:
     check_parse()
     mk_path = ROOT / ".grok-plugin" / "marketplace.json"
@@ -140,6 +240,8 @@ def main() -> int:
     for name in listed:
         if f"entries/{name}.md" not in cards:
             fail(f"{name}: in the marketplace without a card at entries/{name}.md")
+
+    check_counts()
 
     if problems:
         print("\n".join(problems))
