@@ -12,7 +12,7 @@
   <a href="https://github.com/HermeticOrmus/liquid-gold-grok/stargazers"><img src="https://img.shields.io/github/stars/HermeticOrmus/liquid-gold-grok?style=flat-square&color=aa8142" alt="Stars" /></a>
   <a href="https://github.com/HermeticOrmus/liquid-gold-grok/blob/main/LICENSE"><img src="https://img.shields.io/github/license/HermeticOrmus/liquid-gold-grok?style=flat-square&color=aa8142" alt="License" /></a>
   <a href="https://github.com/HermeticOrmus/liquid-gold-grok/commits"><img src="https://img.shields.io/github/last-commit/HermeticOrmus/liquid-gold-grok?style=flat-square&color=aa8142" alt="Last Commit" /></a>
-  <a href="https://github.com/HermeticOrmus/liquid-gold-grok/actions/workflows/verify.yml"><img src="https://img.shields.io/github/actions/workflow/status/HermeticOrmus/liquid-gold-grok/verify.yml?branch=main&style=flat-square&color=aa8142&label=verify" alt="Verify" /></a>
+  <a href="https://github.com/HermeticOrmus/liquid-gold-grok/actions/workflows/check.yml"><img src="https://img.shields.io/github/actions/workflow/status/HermeticOrmus/liquid-gold-grok/check.yml?branch=main&style=flat-square&color=aa8142&label=check" alt="Check" /></a>
   <img src="https://img.shields.io/badge/Kintsugi_verified-aa8142?style=flat-square" alt="Kintsugi verified" />
   <img src="https://img.shields.io/badge/Grok_Build-aa8142?style=flat-square&logo=x&logoColor=white" alt="Grok Build" />
 </p>
