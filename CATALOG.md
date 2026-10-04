@@ -4,9 +4,9 @@ Every entry in the library, with its level. Each name links to its card: what it
 
 - **gold** (12): hallmarked, no break or fracture open.
 - **assayed** (15): admitted, open fractures carry a workaround in the card.
-- **watch** (13): not admitted yet; the card says why. Watch entries are not in the marketplace.
+- **watch** (14): not admitted yet; the card says why. Watch entries are not in the marketplace.
 
-40 entries: 11 from the HermeticOrmus Libre packs and design-mastery, 29 by other authors. The first stock was assayed on 2026-09-30 and the second on 2026-10-01, all with grok 1.0.44. Their ledgers hold 234 cracks, 66 of them sealed; the rest carry a workaround, a seal draft in [`seals/`](seals/), or the reason an entry waits.
+41 entries: 11 from the HermeticOrmus Libre packs and design-mastery, 30 by other authors. The first stock was assayed on 2026-09-30 and the second on 2026-10-01, both with grok 1.0.44. The ledgers hold 237 cracks, 66 of them sealed; the rest carry a workaround, a seal draft in [`seals/`](seals/), or the reason an entry waits.
 
 Install any gold or assayed entry after adding the marketplace once:
 
@@ -55,4 +55,5 @@ grok plugin marketplace add HermeticOrmus/liquid-gold-grok
 | [oh-my-grok](entries/oh-my-grok.md) | watch | Engineering workflow | [mihazs](https://github.com/mihazs); bundles [obra/superpowers](https://github.com/obra/superpowers) skills by Jesse Vincent | 8 found, 0 sealed | not in the marketplace | `49f1365` |
 | [security-guidance](entries/security-guidance.md) | watch | Security | David Dworken, [Anthropic](https://github.com/anthropics) | 7 found, 0 sealed | not in the marketplace | `ab024cd` |
 | [stripe](entries/stripe.md) | watch | Payments | [Stripe](https://stripe.com) | 2 found, 0 sealed | not in the marketplace | `9a36da0` |
+| [unity](entries/unity.md) | watch | Game development | [Unity Technologies](https://unity.com) | 3 found, 0 sealed | not in the marketplace | `de668bf` |
 | [vercel](entries/vercel.md) | watch | Cloud platform | [Vercel](https://github.com/vercel) | 8 found, 1 sealed | not in the marketplace | `2b7e873` |
