@@ -1,7 +1,7 @@
 # Menu: liquid-gold-grok
 
-Queue: 2026-10-04-pantry-queue.md
-Counts: open 65, in flight 0, shipped 7, parked 0, dropped 0, needs fixing 0
+Queue: 2026-10-10-pantry-queue.md
+Counts: open 62, in flight 3, shipped 7, parked 0, dropped 0, needs fixing 0
 
 ## Steer
 
@@ -15,7 +15,7 @@ Counts: open 65, in flight 0, shipped 7, parked 0, dropped 0, needs fixing 0
 - Verify on: repo
 - Evidence: Card [libre-geo](../entries/libre-geo.md) K-05 and its [seal draft](../seals/libre-geo/K-05.md); drift report row libre-geo (14 commits since the pin)
 - Issue: #17
-- Order: axiom, clickhouse, exa, impeccable, mongodb-atlas, neon, playwright-mcp, tavily, tinyfish, wordpress-com, libre-geo, libre-secops-hooks, browser-use, daisyui, base44, wix, amplitude, anthropic-skills, apify, atlassian, awesome-grok-build-skills, aws-agent-plugins, braintrust, cc-switch, code-review, code-simplifier, codebase-memory-mcp, commit-commands, context7, context7-mcp, cosmosdb-agent-kit, expo-skills, github, github-mcp-server, gitnexus, grafana, gstack, guide-build-overview, guide-grok-build-user-guide, guide-grokbook, guide-headless-scripting, guide-introducing-grok-build, guide-modes-and-commands, guide-skills-plugins-marketplaces, headroom, hookify, hub-awesome-grok-build, hub-claude-plugins-official, hub-grok-build-repo, hub-xai-plugin-marketplace, huggingface-skills, linear, oh-my-claudecode, playwright, plugin-dev, resend, skill-creator, tip-agents-md-templates, tip-builtin-hook-examples, tip-grok-hook-input, trailofbits-skills, ui-ux-pro-max, vercel-labs-skills, wshobson-agents, you-com
+- Order: impeccable, mongodb-atlas, neon, playwright-mcp, tavily, tinyfish, wordpress-com, libre-geo, libre-secops-hooks, browser-use, daisyui, base44, wix, amplitude, anthropic-skills, apify, atlassian, awesome-grok-build-skills, aws-agent-plugins, braintrust, cc-switch, code-review, code-simplifier, codebase-memory-mcp, commit-commands, context7, context7-mcp, cosmosdb-agent-kit, expo-skills, github, github-mcp-server, gitnexus, grafana, gstack, guide-build-overview, guide-grok-build-user-guide, guide-grokbook, guide-headless-scripting, guide-introducing-grok-build, guide-modes-and-commands, guide-skills-plugins-marketplaces, headroom, hookify, hub-awesome-grok-build, hub-claude-plugins-official, hub-grok-build-repo, hub-xai-plugin-marketplace, huggingface-skills, linear, oh-my-claudecode, playwright, plugin-dev, resend, skill-creator, tip-agents-md-templates, tip-builtin-hook-examples, tip-grok-hook-input, trailofbits-skills, ui-ux-pro-max, vercel-labs-skills, wshobson-agents, you-com
 - Tie: none
 
 ## Atoms
@@ -28,12 +28,12 @@ Counts: open 65, in flight 0, shipped 7, parked 0, dropped 0, needs fixing 0
 | atlassian | Assay the Claude Code port `atlassian` | open | medium | repo | 2026-10-04 | 43 | - | - |
 | awesome-grok-build-skills | Assay the Grok-native skill set `awesome-grok-build-skills` | open | medium | repo | 2026-10-04 | 44 | - | - |
 | aws-agent-plugins | Assay the Claude Code port `aws-agent-plugins` | open | medium | repo | 2026-10-04 | 42 | - | - |
-| axiom | Assay `axiom` from the official catalog | open | high | repo | 2026-10-04 | 8 | - | - |
+| axiom | Assay `axiom` from the official catalog | in-flight | high | repo | 2026-10-04 | 8 | - | PR #21 (menu/axiom) |
 | base44 | Assay `base44` from the official catalog | open | medium | repo | 2026-10-03 | 5 | - | - |
 | braintrust | Assay `braintrust` from its Grok manifest | open | medium | repo | 2026-10-04 | 18 | - | - |
 | browser-use | Assay `browser-use` from the official catalog | open | medium | repo | 2026-10-01 | 1 | - | - |
 | cc-switch | List `cc-switch` in GUIDES.md | open | medium | repo | 2026-10-04 | 50 | - | - |
-| clickhouse | Assay `clickhouse` from its Grok manifest | open | high | repo | 2026-10-04 | 13 | - | - |
+| clickhouse | Assay `clickhouse` from its Grok manifest | in-flight | high | repo | 2026-10-04 | 13 | - | PR #22 (menu/clickhouse) |
 | code-review | Assay the Claude Code port `code-review` | open | medium | repo | 2026-10-04 | 24 | - | - |
 | code-simplifier | Assay the Claude Code port `code-simplifier` | open | medium | repo | 2026-10-04 | 26 | - | - |
 | codebase-memory-mcp | Assay the MCP server `codebase-memory-mcp` under Grok Build | open | medium | repo | 2026-10-04 | 48 | - | - |
@@ -42,7 +42,7 @@ Counts: open 65, in flight 0, shipped 7, parked 0, dropped 0, needs fixing 0
 | context7-mcp | Assay the MCP server `context7-mcp` under Grok Build | open | medium | repo | 2026-10-04 | 47 | - | - |
 | cosmosdb-agent-kit | Assay `cosmosdb-agent-kit` from its Grok manifest | open | medium | repo | 2026-10-04 | 23 | - | - |
 | daisyui | Assay the community `daisyui` plugin | open | medium | repo | 2026-10-01 | 2 | - | - |
-| exa | Assay `exa` from the official catalog | open | high | repo | 2026-10-04 | 11 | - | - |
+| exa | Assay `exa` from the official catalog | in-flight | high | repo | 2026-10-04 | 11 | - | PR #23 (menu/exa) |
 | expo-skills | Assay the Claude Code port `expo-skills` | open | medium | repo | 2026-10-04 | 41 | - | - |
 | github | Assay the Claude Code port `github` | open | medium | repo | 2026-10-04 | 30 | - | - |
 | github-mcp-server | Assay the MCP server `github-mcp-server` under Grok Build | open | medium | repo | 2026-10-04 | 46 | - | - |
