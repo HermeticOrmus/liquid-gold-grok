@@ -2,11 +2,11 @@
 
 Every entry in the library, with its level. Each name links to its card: what it does, who it is for, what it can execute, the assay, and the ledger of cracks and seals. The rules behind the levels are in [RUBRIC.md](RUBRIC.md).
 
-- **gold** (12): hallmarked, no break or fracture open.
+- **gold** (13): hallmarked, no break or fracture open.
 - **assayed** (15): admitted, open fractures carry a workaround in the card.
 - **watch** (14): not admitted yet; the card says why. Watch entries are not in the marketplace.
 
-41 entries: 11 from the HermeticOrmus Libre packs and design-mastery, 30 by other authors. The first stock was assayed on 2026-09-30 and the second on 2026-10-01, both with grok 1.0.44. The ledgers hold 238 cracks, 66 of them sealed; the rest carry a workaround, a seal draft in [`seals/`](seals/), or the reason an entry waits.
+42 entries: 11 from the HermeticOrmus Libre packs and design-mastery, 31 by other authors. The first stock was assayed on 2026-09-30 and the second on 2026-10-01, both with grok 1.0.44. The ledgers hold 243 cracks, 66 of them sealed; the rest carry a workaround, a seal draft in [`seals/`](seals/), or the reason an entry waits.
 
 Install any gold or assayed entry after adding the marketplace once:
 
@@ -17,6 +17,7 @@ grok plugin marketplace add HermeticOrmus/liquid-gold-grok
 | Entry | Level | Domain | Author | Cracks | Install | Pin |
 |-------|-------|--------|--------|--------|---------|-----|
 | [api-documentation](entries/api-documentation.md) | gold | Technical writing | [Diego Bodart](https://github.com/HermeticOrmus) | 7 found, 4 sealed | `grok plugin install api-documentation@liquid-gold-grok` | `8ec68f3` |
+| [axiom](entries/axiom.md) | gold | Observability | [Axiom](https://axiom.co) | 5 found, 0 sealed | `grok plugin install axiom@liquid-gold-grok` | `8f26649` |
 | [cloudflare](entries/cloudflare.md) | gold | Cloud platform | [Cloudflare](https://www.cloudflare.com/) | 2 found, 1 sealed | `grok plugin install cloudflare@liquid-gold-grok` | `626547c` |
 | [communication-buses](entries/communication-buses.md) | gold | Embedded | [Diego Bodart](https://github.com/HermeticOrmus) | 6 found, 4 sealed | `grok plugin install communication-buses@liquid-gold-grok` | `8788082` |
 | [design-mastery](entries/design-mastery.md) | gold | Design | [Diego Bodart](https://github.com/HermeticOrmus) | 8 found, 6 sealed | `grok plugin install design-mastery@liquid-gold-grok` | `e07686b` |
