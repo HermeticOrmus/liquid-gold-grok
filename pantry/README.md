@@ -18,9 +18,9 @@ Want to add to it? Open a [feedback issue](https://github.com/HermeticOrmus/liqu
 - Competitor map: [2026-09-30](2026-09-30-competitor-map.md)
 - X mine: [2026-09-30](2026-09-30-x-mine.md)
 - People mine: [2026-09-30](2026-09-30-people-mine.md)
-- Pantry queue: [2026-10-12](2026-10-12-pantry-queue.md)
-- Candidate mine: [2026-10-12](2026-10-12-candidate-mine.md)
-- Drift: [2026-10-12](2026-10-12-drift.md)
+- Pantry queue: [2026-10-13](2026-10-13-pantry-queue.md)
+- Candidate mine: [2026-10-13](2026-10-13-candidate-mine.md)
+- Drift: [2026-10-13](2026-10-13-drift.md)
 
 ## Templates
 

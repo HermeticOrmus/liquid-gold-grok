@@ -1,7 +1,7 @@
 # Menu: liquid-gold-grok
 
-Queue: 2026-10-12-pantry-queue.md
-Counts: open 62, in flight 2, shipped 8, parked 0, dropped 0, needs fixing 0
+Queue: 2026-10-13-pantry-queue.md
+Counts: open 62, in flight 0, shipped 10, parked 0, dropped 0, needs fixing 0
 
 ## Steer
 
@@ -22,70 +22,68 @@ Counts: open 62, in flight 2, shipped 8, parked 0, dropped 0, needs fixing 0
 
 | Key | Title | State | Confidence | Class | Since | Queue # | Issue | Because |
 |-----|-------|-------|------------|-------|-------|---------|-------|---------|
-| amplitude | Assay `amplitude` from its Grok manifest | open | medium | repo | 2026-10-04 | 19 | - | - |
-| anthropic-skills | Assay the Claude Code port `anthropic-skills` | open | medium | repo | 2026-10-04 | 34 | - | - |
-| apify | Assay `apify` from its Grok manifest | open | medium | repo | 2026-10-04 | 16 | - | - |
-| atlassian | Assay the Claude Code port `atlassian` | open | medium | repo | 2026-10-04 | 42 | - | - |
-| awesome-grok-build-skills | Assay the Grok-native skill set `awesome-grok-build-skills` | open | medium | repo | 2026-10-04 | 43 | - | - |
-| aws-agent-plugins | Assay the Claude Code port `aws-agent-plugins` | open | medium | repo | 2026-10-04 | 41 | - | - |
+| amplitude | Assay `amplitude` from its Grok manifest | open | medium | repo | 2026-10-04 | 17 | - | - |
+| anthropic-skills | Assay the Claude Code port `anthropic-skills` | open | medium | repo | 2026-10-04 | 32 | - | - |
+| apify | Assay `apify` from its Grok manifest | open | medium | repo | 2026-10-04 | 14 | - | - |
+| atlassian | Assay the Claude Code port `atlassian` | open | medium | repo | 2026-10-04 | 40 | - | - |
+| awesome-grok-build-skills | Assay the Grok-native skill set `awesome-grok-build-skills` | open | medium | repo | 2026-10-04 | 41 | - | - |
+| aws-agent-plugins | Assay the Claude Code port `aws-agent-plugins` | open | medium | repo | 2026-10-04 | 39 | - | - |
 | base44 | Assay `base44` from the official catalog | open | medium | repo | 2026-10-03 | 5 | - | - |
-| braintrust | Assay `braintrust` from its Grok manifest | open | medium | repo | 2026-10-04 | 17 | - | - |
+| braintrust | Assay `braintrust` from its Grok manifest | open | medium | repo | 2026-10-04 | 15 | - | - |
 | browser-use | Assay `browser-use` from the official catalog | open | medium | repo | 2026-10-01 | 1 | - | - |
-| cc-switch | List `cc-switch` in GUIDES.md | open | medium | repo | 2026-10-04 | 49 | - | - |
-| clickhouse | Assay `clickhouse` from its Grok manifest | in-flight | high | repo | 2026-10-04 | 12 | - | PR #22 (menu/clickhouse) |
-| code-review | Assay the Claude Code port `code-review` | open | medium | repo | 2026-10-04 | 23 | - | - |
-| code-simplifier | Assay the Claude Code port `code-simplifier` | open | medium | repo | 2026-10-04 | 25 | - | - |
-| codebase-memory-mcp | Assay the MCP server `codebase-memory-mcp` under Grok Build | open | medium | repo | 2026-10-04 | 47 | - | - |
-| commit-commands | Assay the Claude Code port `commit-commands` | open | medium | repo | 2026-10-04 | 24 | - | - |
-| context7 | Assay the Claude Code port `context7` | open | medium | repo | 2026-10-04 | 31 | - | - |
-| context7-mcp | Assay the MCP server `context7-mcp` under Grok Build | open | medium | repo | 2026-10-04 | 46 | - | - |
-| cosmosdb-agent-kit | Assay `cosmosdb-agent-kit` from its Grok manifest | open | medium | repo | 2026-10-04 | 22 | - | - |
+| cc-switch | List `cc-switch` in GUIDES.md | open | medium | repo | 2026-10-04 | 47 | - | - |
+| code-review | Assay the Claude Code port `code-review` | open | medium | repo | 2026-10-04 | 21 | - | - |
+| code-simplifier | Assay the Claude Code port `code-simplifier` | open | medium | repo | 2026-10-04 | 23 | - | - |
+| codebase-memory-mcp | Assay the MCP server `codebase-memory-mcp` under Grok Build | open | medium | repo | 2026-10-04 | 45 | - | - |
+| commit-commands | Assay the Claude Code port `commit-commands` | open | medium | repo | 2026-10-04 | 22 | - | - |
+| context7 | Assay the Claude Code port `context7` | open | medium | repo | 2026-10-04 | 29 | - | - |
+| context7-mcp | Assay the MCP server `context7-mcp` under Grok Build | open | medium | repo | 2026-10-04 | 44 | - | - |
+| cosmosdb-agent-kit | Assay `cosmosdb-agent-kit` from its Grok manifest | open | medium | repo | 2026-10-04 | 20 | - | - |
 | daisyui | Assay the community `daisyui` plugin | open | medium | repo | 2026-10-01 | 2 | - | - |
-| exa | Assay `exa` from the official catalog | in-flight | high | repo | 2026-10-04 | 10 | - | PR #23 (menu/exa) |
-| expo-skills | Assay the Claude Code port `expo-skills` | open | medium | repo | 2026-10-04 | 40 | - | - |
-| github | Assay the Claude Code port `github` | open | medium | repo | 2026-10-04 | 29 | - | - |
-| github-mcp-server | Assay the MCP server `github-mcp-server` under Grok Build | open | medium | repo | 2026-10-04 | 45 | - | - |
-| gitnexus | Assay the MCP server `gitnexus` under Grok Build | open | medium | repo | 2026-10-04 | 48 | - | - |
-| grafana | Assay `grafana` from its Grok manifest | open | medium | repo | 2026-10-04 | 18 | - | - |
-| gstack | Assay the Claude Code port `gstack` | open | medium | repo | 2026-10-04 | 37 | - | - |
-| guide-build-overview | List `guide-build-overview` in GUIDES.md | open | medium | repo | 2026-10-04 | 51 | - | - |
-| guide-grok-build-user-guide | List `guide-grok-build-user-guide` in GUIDES.md | open | medium | repo | 2026-10-04 | 55 | - | - |
-| guide-grokbook | List `guide-grokbook` in GUIDES.md | open | medium | repo | 2026-10-04 | 57 | - | - |
-| guide-headless-scripting | List `guide-headless-scripting` in GUIDES.md | open | medium | repo | 2026-10-04 | 54 | - | - |
-| guide-introducing-grok-build | List `guide-introducing-grok-build` in GUIDES.md | open | medium | repo | 2026-10-04 | 56 | - | - |
-| guide-modes-and-commands | List `guide-modes-and-commands` in GUIDES.md | open | medium | repo | 2026-10-04 | 53 | - | - |
-| guide-skills-plugins-marketplaces | List `guide-skills-plugins-marketplaces` in GUIDES.md | open | medium | repo | 2026-10-04 | 52 | - | - |
-| headroom | List `headroom` in GUIDES.md | open | medium | repo | 2026-10-04 | 50 | - | - |
-| hookify | Assay the Claude Code port `hookify` | open | medium | repo | 2026-10-04 | 26 | - | - |
-| hub-awesome-grok-build | List `hub-awesome-grok-build` in GUIDES.md | open | medium | repo | 2026-10-04 | 61 | - | - |
-| hub-claude-plugins-official | List `hub-claude-plugins-official` in GUIDES.md | open | medium | repo | 2026-10-04 | 64 | - | - |
-| hub-grok-build-repo | List `hub-grok-build-repo` in GUIDES.md | open | medium | repo | 2026-10-04 | 62 | - | - |
-| hub-xai-plugin-marketplace | List `hub-xai-plugin-marketplace` in GUIDES.md | open | medium | repo | 2026-10-04 | 63 | - | - |
-| huggingface-skills | Assay the Claude Code port `huggingface-skills` | open | medium | repo | 2026-10-04 | 39 | - | - |
-| impeccable | Assay the Claude Code port `impeccable` | open | high | repo | 2026-10-04 | 15 | - | - |
+| expo-skills | Assay the Claude Code port `expo-skills` | open | medium | repo | 2026-10-04 | 38 | - | - |
+| github | Assay the Claude Code port `github` | open | medium | repo | 2026-10-04 | 27 | - | - |
+| github-mcp-server | Assay the MCP server `github-mcp-server` under Grok Build | open | medium | repo | 2026-10-04 | 43 | - | - |
+| gitnexus | Assay the MCP server `gitnexus` under Grok Build | open | medium | repo | 2026-10-04 | 46 | - | - |
+| grafana | Assay `grafana` from its Grok manifest | open | medium | repo | 2026-10-04 | 16 | - | - |
+| gstack | Assay the Claude Code port `gstack` | open | medium | repo | 2026-10-04 | 35 | - | - |
+| guide-build-overview | List `guide-build-overview` in GUIDES.md | open | medium | repo | 2026-10-04 | 49 | - | - |
+| guide-grok-build-user-guide | List `guide-grok-build-user-guide` in GUIDES.md | open | medium | repo | 2026-10-04 | 53 | - | - |
+| guide-grokbook | List `guide-grokbook` in GUIDES.md | open | medium | repo | 2026-10-04 | 55 | - | - |
+| guide-headless-scripting | List `guide-headless-scripting` in GUIDES.md | open | medium | repo | 2026-10-04 | 52 | - | - |
+| guide-introducing-grok-build | List `guide-introducing-grok-build` in GUIDES.md | open | medium | repo | 2026-10-04 | 54 | - | - |
+| guide-modes-and-commands | List `guide-modes-and-commands` in GUIDES.md | open | medium | repo | 2026-10-04 | 51 | - | - |
+| guide-skills-plugins-marketplaces | List `guide-skills-plugins-marketplaces` in GUIDES.md | open | medium | repo | 2026-10-04 | 50 | - | - |
+| headroom | List `headroom` in GUIDES.md | open | medium | repo | 2026-10-04 | 48 | - | - |
+| hookify | Assay the Claude Code port `hookify` | open | medium | repo | 2026-10-04 | 24 | - | - |
+| hub-awesome-grok-build | List `hub-awesome-grok-build` in GUIDES.md | open | medium | repo | 2026-10-04 | 59 | - | - |
+| hub-claude-plugins-official | List `hub-claude-plugins-official` in GUIDES.md | open | medium | repo | 2026-10-04 | 62 | - | - |
+| hub-grok-build-repo | List `hub-grok-build-repo` in GUIDES.md | open | medium | repo | 2026-10-04 | 60 | - | - |
+| hub-xai-plugin-marketplace | List `hub-xai-plugin-marketplace` in GUIDES.md | open | medium | repo | 2026-10-04 | 61 | - | - |
+| huggingface-skills | Assay the Claude Code port `huggingface-skills` | open | medium | repo | 2026-10-04 | 37 | - | - |
+| impeccable | Assay the Claude Code port `impeccable` | open | high | repo | 2026-10-04 | 13 | - | - |
 | libre-geo | Seal the `libre-geo` privacy promise and admit it | open | medium | repo | 2026-09-30 | 3 | #17 | - |
 | libre-secops-hooks | Teach `libre-secops-hooks` Grok's hook input | open | medium | repo | 2026-09-30 | 4 | - | - |
-| linear | Assay the Claude Code port `linear` | open | medium | repo | 2026-10-04 | 32 | - | - |
+| linear | Assay the Claude Code port `linear` | open | medium | repo | 2026-10-04 | 30 | - | - |
 | mongodb-atlas | Assay `mongodb-atlas` from the official catalog | open | high | repo | 2026-10-04 | 8 | - | - |
 | neon | Assay `neon` from the official catalog | open | high | repo | 2026-10-04 | 9 | - | - |
-| oh-my-claudecode | Assay the Claude Code port `oh-my-claudecode` | open | medium | repo | 2026-10-04 | 36 | - | - |
-| playwright | Assay the Claude Code port `playwright` | open | medium | repo | 2026-10-04 | 30 | - | - |
-| playwright-mcp | Assay the MCP server `playwright-mcp` under Grok Build | open | high | repo | 2026-10-04 | 14 | - | - |
-| plugin-dev | Assay the Claude Code port `plugin-dev` | open | medium | repo | 2026-10-04 | 27 | - | - |
-| resend | Assay `resend` from its Grok manifest | open | medium | repo | 2026-10-04 | 21 | - | - |
-| skill-creator | Assay the Claude Code port `skill-creator` | open | medium | repo | 2026-10-04 | 28 | - | - |
-| tavily | Assay `tavily` from the official catalog | open | high | repo | 2026-10-04 | 11 | - | - |
+| oh-my-claudecode | Assay the Claude Code port `oh-my-claudecode` | open | medium | repo | 2026-10-04 | 34 | - | - |
+| playwright | Assay the Claude Code port `playwright` | open | medium | repo | 2026-10-04 | 28 | - | - |
+| playwright-mcp | Assay the MCP server `playwright-mcp` under Grok Build | open | high | repo | 2026-10-04 | 12 | - | - |
+| plugin-dev | Assay the Claude Code port `plugin-dev` | open | medium | repo | 2026-10-04 | 25 | - | - |
+| resend | Assay `resend` from its Grok manifest | open | medium | repo | 2026-10-04 | 19 | - | - |
+| skill-creator | Assay the Claude Code port `skill-creator` | open | medium | repo | 2026-10-04 | 26 | - | - |
+| tavily | Assay `tavily` from the official catalog | open | high | repo | 2026-10-04 | 10 | - | - |
 | tinyfish | Assay `tinyfish` from the official catalog | open | high | repo | 2026-10-04 | 7 | - | - |
-| tip-agents-md-templates | List `tip-agents-md-templates` in GUIDES.md | open | medium | repo | 2026-10-04 | 59 | - | - |
-| tip-builtin-hook-examples | List `tip-builtin-hook-examples` in GUIDES.md | open | medium | repo | 2026-10-04 | 58 | - | - |
-| tip-grok-hook-input | List `tip-grok-hook-input` in GUIDES.md | open | medium | repo | 2026-10-04 | 60 | - | - |
-| trailofbits-skills | Assay the Claude Code port `trailofbits-skills` | open | medium | repo | 2026-10-04 | 38 | - | - |
-| ui-ux-pro-max | Assay the Claude Code port `ui-ux-pro-max` | open | medium | repo | 2026-10-04 | 33 | - | - |
-| vercel-labs-skills | List `vercel-labs-skills` in GUIDES.md | open | medium | repo | 2026-10-04 | 44 | - | - |
+| tip-agents-md-templates | List `tip-agents-md-templates` in GUIDES.md | open | medium | repo | 2026-10-04 | 57 | - | - |
+| tip-builtin-hook-examples | List `tip-builtin-hook-examples` in GUIDES.md | open | medium | repo | 2026-10-04 | 56 | - | - |
+| tip-grok-hook-input | List `tip-grok-hook-input` in GUIDES.md | open | medium | repo | 2026-10-04 | 58 | - | - |
+| trailofbits-skills | Assay the Claude Code port `trailofbits-skills` | open | medium | repo | 2026-10-04 | 36 | - | - |
+| ui-ux-pro-max | Assay the Claude Code port `ui-ux-pro-max` | open | medium | repo | 2026-10-04 | 31 | - | - |
+| vercel-labs-skills | List `vercel-labs-skills` in GUIDES.md | open | medium | repo | 2026-10-04 | 42 | - | - |
 | wix | Assay `wix` from the official catalog | open | medium | repo | 2026-10-03 | 6 | - | - |
-| wordpress-com | Assay `wordpress-com` from its Grok manifest | open | high | repo | 2026-10-04 | 13 | - | - |
-| wshobson-agents | Assay the Claude Code port `wshobson-agents` | open | medium | repo | 2026-10-04 | 35 | - | - |
-| you-com | Assay `you-com` from its Grok manifest | open | medium | repo | 2026-10-04 | 20 | - | - |
+| wordpress-com | Assay `wordpress-com` from its Grok manifest | open | high | repo | 2026-10-04 | 11 | - | - |
+| wshobson-agents | Assay the Claude Code port `wshobson-agents` | open | medium | repo | 2026-10-04 | 33 | - | - |
+| you-com | Assay `you-com` from its Grok manifest | open | medium | repo | 2026-10-04 | 18 | - | - |
 
 ## Retired
 
@@ -94,6 +92,8 @@ Counts: open 62, in flight 2, shipped 8, parked 0, dropped 0, needs fixing 0
 | axiom | Assay `axiom` from the official catalog | shipped | 2026-10-04 | - | bullet: Assay `axiom` from the official catalog: shipped, PR #21 |
 | catalog-counts | Check the catalog counts against the cards (`catalog-counts`) | shipped | 2026-10-01 | #9 | bullet: Check the catalog counts against the cards (`catalog-counts`): shipped, PR #11 |
 | chrome-devtools | Re-assay `chrome-devtools` at its moved upstream | shipped | 2026-09-30 | #15 | bullet: Re-assay `chrome-devtools` at its moved upstream: shipped, PR #16 |
+| clickhouse | Assay `clickhouse` from its Grok manifest | shipped | 2026-10-04 | - | bullet: Assay `clickhouse` from its Grok manifest: shipped, PR #22 |
+| exa | Assay `exa` from the official catalog | shipped | 2026-10-04 | - | bullet: Assay `exa` from the official catalog: shipped, PR #23 |
 | repin-all | Report drift for every pin (`repin-all`) | shipped | 2026-09-30 | #3 | bullet: Report drift for every pin (`repin-all`): shipped, PR #5 |
 | sentry | Assay `sentry` from the official catalog | shipped | 2026-09-30 | #6 | bullet: Assay `sentry` from the official catalog: shipped, PR #5 |
 | sprites | Assay the Grok-native `sprites` plugin | shipped | 2026-09-30 | - | bullet: Assay the Grok-native `sprites` plugin: shipped, PR #5 |
